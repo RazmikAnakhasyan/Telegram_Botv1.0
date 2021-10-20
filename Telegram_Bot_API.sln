@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "Telegram_Bot_API\API.csproj", "{65DF9143-0CC9-4723-B394-BA38FD7D9A84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Telegram_Bot_API\API.csproj", "{65DF9143-0CC9-4723-B394-BA38FD7D9A84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{E3BA9EC9-984E-40C9-8AE9-2BE0E023E498}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{E3BA9EC9-984E-40C9-8AE9-2BE0E023E498}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{AA3E8A5C-54CE-4B50-98F0-6F52DD4679DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{AA3E8A5C-54CE-4B50-98F0-6F52DD4679DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{90D06835-C0AC-4EC2-B864-3F9E422F829D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{90D06835-C0AC-4EC2-B864-3F9E422F829D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBotTest", "..\TelegramBotTest\TelegramBotTest\TelegramBotTest.csproj", "{83A2C68F-9A2E-4E05-B3F8-031506A16139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E303C98A-DDF7-4F7F-A9FD-BFA0D3CC42A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83A2C68F-9A2E-4E05-B3F8-031506A16139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83A2C68F-9A2E-4E05-B3F8-031506A16139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83A2C68F-9A2E-4E05-B3F8-031506A16139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83A2C68F-9A2E-4E05-B3F8-031506A16139}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
