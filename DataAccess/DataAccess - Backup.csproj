@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\**" />
     <Compile Remove="Repositories\**" />
-    <EmbeddedResource Remove="Entities\**" />
     <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Entities\**" />
     <None Remove="Repositories\**" />
   </ItemGroup>
 
@@ -23,10 +20,6 @@
     </PackageReference>
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>

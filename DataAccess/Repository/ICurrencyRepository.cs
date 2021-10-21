@@ -1,4 +1,5 @@
 ﻿using CodeFirst.Models;
+using Shared.Models.Currency;
 using System;
 using System.Collections.Generic;
 using System.Linq;

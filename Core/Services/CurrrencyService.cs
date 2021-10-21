@@ -16,14 +16,14 @@ namespace Core.Services
         {
             _currencyRepository = currencyRepository;
         }
-        public IEnumerable<ModelCurrency> Available()
+        public IEnumerable<Currency> Available()
         {
             return _currencyRepository.All().
                  Select(MapCurrencies);                    
         }
-        private ModelCurrency MapCurrencies(Currency currency)
+        private Currency MapCurrencies(Currency currency)
         {
-            return new  ModelCurrency
+            return new  Currency
             {
                 Code = currency.Code
             };
