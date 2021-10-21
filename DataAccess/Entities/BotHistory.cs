@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.Models
 {
-    class BotHistory
+    public class BotHistory
     {
 
 

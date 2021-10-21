@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeFirst.Models
 {
-    class Rate
+    public class Rate
     {
         public int ID { get; set; }
         public string FromCurrency { get; set; }

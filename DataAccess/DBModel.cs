@@ -3,20 +3,20 @@
 
 namespace CodeFirst.Models
 {
-    class DBModel:DbContext
+    public class DBModel:DbContext
     {
-        public DBModel(): base()
+        public DBModel()
+        {
+
+        }
+        public DBModel(DbContextOptions<DBModel> options)
+           : base(options)
         {
         }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Rate> Rates { get; set; }
         public DbSet<Bank> Banks { get; set; }
         public DbSet<BotHistory> BotHistory { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost; initial catalog = Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
-        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
              modelBuilder.Entity<Currency>
@@ -69,11 +69,6 @@ namespace CodeFirst.Models
 
             });
             modelBuilder.Entity<BotHistory>().HasKey(_ => _.ID);
-
-         
-
-
-
         }
     }
 }
