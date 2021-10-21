@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Shared.Models;
+using Shared;
+using Shared.Models.Banks;
 using CodeFirst.Models;
+using Shared.Models.Rates;
 
 namespace DataAccess.Repository
 {
-    interface IBankRepository
+   public interface IBankRepository
     {
-        public IEnumerable<> get { get; set; }
+
+        public IEnumerable<Rates> AllCurrency();
     }
 }

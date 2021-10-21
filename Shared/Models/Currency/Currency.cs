@@ -9,5 +9,6 @@ namespace Shared.Models.Currency
     public class Currency
     {
         public string Code { get; set; }
+        public int ID { get; set; }
     }
 }

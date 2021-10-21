@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using DataAccess.Repository;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace Core.Services
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<ICurrencyService, CurrrencyService>();
+            services.AddScoped<IBankRepository, BankRepository>();
         }
     }
 }

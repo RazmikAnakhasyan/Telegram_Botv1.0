@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Services;
+using Microsoft.AspNetCore.Mvc;
+using Shared.Models.Rates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,16 @@ namespace API.Controller
     [ApiController]
     public class TestController : ControllerBase
     {
-        [HttpGet("test")]
-        public string Get()
+        private readonly IBankService _bankService;
+        public TestController(IBankService bankService)
         {
-            return "Tech42 .NET Currency API";
+            _bankService = bankService;
         }
+        [HttpGet("test")]
+        public IEnumerable<Rates> Get()
+        {
+            return _bankService.AllRates();
+        }
+      
     }
 }

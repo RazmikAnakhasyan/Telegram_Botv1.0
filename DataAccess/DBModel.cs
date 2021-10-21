@@ -1,5 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-
+using Shared.Models.Banks;
+using Shared.Models.Currency;
+using Shared.Models.Rates;
+using Shared.Models.BotHistory;
 
 namespace CodeFirst.Models
 {
@@ -14,9 +17,9 @@ namespace CodeFirst.Models
         {
         }
         public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Rate> Rates { get; set; }
-        public DbSet<Bank> Banks { get; set; }
-        public DbSet<BotHistory> BotHistory { get; set; }
+        public DbSet<Rates> Rates { get; set; }
+        public DbSet<ModelBanks> Banks { get; set; }
+        public DbSet<BotHistoryModel> BotHistory { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
              modelBuilder.Entity<Currency>
@@ -27,23 +30,23 @@ namespace CodeFirst.Models
                 }) ;
             modelBuilder.Entity<Currency>().HasKey(_ => _.ID);
 
-            modelBuilder.Entity<Bank>
+            modelBuilder.Entity < ModelBanks>
              (_ => {
                  _.Property(_b => _b.ID).IsRequired().ValueGeneratedOnAdd();
                  _.Property(_b => _b.BankName).IsRequired().HasMaxLength(50);
                  _.Property(_b => _b.BankURL).HasMaxLength(500);
              });
-            modelBuilder.Entity<Bank>().HasKey(_ => _.ID);
+            modelBuilder.Entity<ModelBanks>().HasKey(_ => _.ID);
 
 
-            foreach (var prop in typeof(Rate).GetProperties())
+            foreach (var prop in typeof(Rates).GetProperties())
             {
                 modelBuilder
-                    .Entity<Rate>()
+                    .Entity<Rates>()
                     .Property(prop.Name)
                     .IsRequired();
             }
-            modelBuilder.Entity<Rate>
+            modelBuilder.Entity<Rates>
                 (_ => {
                     _.Property(_r => _r.ID).ValueGeneratedOnAdd();
                     _.Property(_r => _r.FromCurrency).HasMaxLength(3);
@@ -51,9 +54,9 @@ namespace CodeFirst.Models
                     _.Property(_r => _r.LastUpdated).HasColumnType("datetime2");
                 });
 
-            modelBuilder.Entity<Rate>().HasKey(_ => _.ID);
-            modelBuilder.Entity<Rate>().HasIndex(_ => _.FromCurrency);
-            modelBuilder.Entity<Rate>().HasIndex(_ => _.ToCurrency);
+            modelBuilder.Entity<Rates>().HasKey(_ => _.ID);
+            modelBuilder.Entity<Rates>().HasIndex(_ => _.FromCurrency);
+            modelBuilder.Entity<Rates>().HasIndex(_ => _.ToCurrency);
 
             //modelBuilder.Entity<Bank>().HasMany(_ => _.Rates)
             //    .WithOne(_ => _.Bank);
@@ -62,13 +65,13 @@ namespace CodeFirst.Models
             //modelBuilder.Entity<Rate>().HasOne(_ => _.ToCurrency);
 
 
-            modelBuilder.Entity<BotHistory>
+            modelBuilder.Entity<BotHistoryModel>
             (_ => {
                 _.Property(_b => _b.ID).IsRequired().ValueGeneratedOnAdd();
                 _.Property(_b => _b.Date).IsRequired().HasColumnType("datetime2");
 
             });
-            modelBuilder.Entity<BotHistory>().HasKey(_ => _.ID);
+            modelBuilder.Entity<BotHistoryModel>().HasKey(_ => _.ID);
         }
     }
 }
