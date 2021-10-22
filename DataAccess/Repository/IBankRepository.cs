@@ -13,6 +13,6 @@ namespace DataAccess.Repository
    public interface IBankRepository
     {
 
-        public IEnumerable<Rates> AllCurrency();
+        public IEnumerable<Rates> All();
     }
 }

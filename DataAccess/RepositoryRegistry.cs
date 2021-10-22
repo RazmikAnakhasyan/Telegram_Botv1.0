@@ -15,6 +15,7 @@ namespace DataAccess
         public static void RegisterRepositories(IServiceCollection services)
         {
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<IBankRepository, BankRepository>();
         }
         public static void RegisterDbContext(IServiceCollection services,string conenctionString)
         {

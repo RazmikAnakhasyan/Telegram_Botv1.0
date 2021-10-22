@@ -12,6 +12,6 @@ namespace Shared.Models.Banks
        public int ID { get; set; }
         public   string BankName { get; set; }
       public  string BankURL { get; set; }
-        public IEnumerable<Rates.Rates> _rates { get; set; }
+       
     }
 }

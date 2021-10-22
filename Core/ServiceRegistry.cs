@@ -13,7 +13,7 @@ namespace Core.Services
         public static void RegisterServices(IServiceCollection services)
         {
             services.AddScoped<ICurrencyService, CurrrencyService>();
-            services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IBankService, BankService>();
         }
     }
 }

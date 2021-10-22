@@ -18,7 +18,7 @@ namespace DataAccess.Repository
         }
         public IEnumerable<Currency> All()
         {
-            return (IEnumerable<Currency>)_context.Currencies;
+            return _context.Currencies;
         }
     }
 }

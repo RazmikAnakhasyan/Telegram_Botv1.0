@@ -16,7 +16,7 @@ namespace API.Controller
         {
             _bankService = bankService;
         }
-        [HttpGet("test")]
+        [HttpGet("/api/currency/all")]
         public IEnumerable<Rates> Get()
         {
             return _bankService.AllRates();
