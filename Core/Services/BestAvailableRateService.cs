@@ -27,8 +27,8 @@ namespace Core.Services
             if (fromCurrency == "AMD")
             {
     
-               r = availableRates.First(_ => _.FromCurrency == fromCurrency     
-                                                && _.SellValue ==availableRates.Where(_ => _.FromCurrency == fromCurrency).OrderBy(_ => _.SellValue).FirstOrDefault().SellValue);
+               r = availableRates.First(_ => _.FromCurrency == toCurrency     
+                                                && _.SellValue ==availableRates.Where(_ => _.FromCurrency == toCurrency).OrderBy(_ => _.SellValue).FirstOrDefault().SellValue);
 
                 bestRate.BankName = _bestAvailableRateRepository.GetBankName(r.BankId);
                 bestRate.Amount =Math.Round( amount / r.SellValue,2) ;
@@ -43,9 +43,8 @@ namespace Core.Services
             }
             else
             {
-               
 
-                //todo
+                                //todo
 
                 r = availableRates.OrderByDescending(_ => _.BuyValue / _.SellValue).FirstOrDefault();
                 bestRate.BankName = _bestAvailableRateRepository.GetBankName(r.BankId);
