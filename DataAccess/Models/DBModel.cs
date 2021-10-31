@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
-
-namespace CodeFirst.Models
+namespace DataAccess.Models
 {
     class DBModel:DbContext
     {
-        public DBModel(): base()
+        public DBModel(DbContextOptions<DBModel> options)
+         : base(options)
         {
         }
         public DbSet<Currency> Currencies { get; set; }
@@ -15,7 +16,8 @@ namespace CodeFirst.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost; initial catalog = Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
+            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB; initial catalog = Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
+
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

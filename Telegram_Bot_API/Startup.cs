@@ -1,3 +1,5 @@
+using Core;
+using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -27,7 +29,10 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
 
-
+         
+            DataAccessRegistry.RegisterServices(services);
+            DataAccessRegistry.RegisterDBContext(services, Configuration.GetConnectionString("Default"));
+            ServiceRegistry.RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
