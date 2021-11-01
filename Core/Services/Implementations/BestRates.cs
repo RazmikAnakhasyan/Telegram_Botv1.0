@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Model;
 using Core.Services.Interfaces;
-using DataAccess.Entities;
+using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
 using System.Collections.Generic;
 
