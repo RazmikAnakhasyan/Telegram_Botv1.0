@@ -1,10 +1,13 @@
 ﻿using DataAccess.Repository;
+using Core.Services.Interfaces;
+using Core.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Services;
 
 namespace Core.Services
 {
@@ -14,6 +17,11 @@ namespace Core.Services
         {
             services.AddScoped<ICurrencyService, CurrrencyService>();
             services.AddScoped<IBankService, BankService>();
+            services.AddScoped<ICurrencies, Currencies>();
+            services.AddScoped<IBestRates, BestRates>();
+            services.AddScoped<IBestAvailableRateService, BestAvailableRateService>();
+ 
         }
+  
     }
 }

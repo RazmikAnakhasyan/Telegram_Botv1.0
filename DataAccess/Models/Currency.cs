@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    public class Currency
+    class Currency
     {
        public int ID { get; set; }
         public string Code { get; set; }

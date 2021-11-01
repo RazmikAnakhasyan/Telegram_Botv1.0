@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    public class BotHistory
+    class BotHistory
     {
 
 
