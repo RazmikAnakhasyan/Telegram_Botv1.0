@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Entities\**" />
     <Compile Remove="Repositories\**" />
-    <EmbeddedResource Remove="Entities\**" />
     <EmbeddedResource Remove="Repositories\**" />
-    <None Remove="Entities\**" />
     <None Remove="Repositories\**" />
   </ItemGroup>
 
@@ -26,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>
