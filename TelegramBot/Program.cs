@@ -6,9 +6,10 @@ namespace TelegramBot
 {
     class Program
     {
+        [Obsolete]
         static void Main(string[] args)
         {
-            TelegramCommandHandler telegram = new TelegramCommandHandler();
+            TelegramCommandHandler telegram = new();
             telegram.Get();
         }
     }

@@ -16,7 +16,7 @@ namespace TelegramBot
             Bot = new TelegramBotClient(_token);
         }
 
-
+        [Obsolete]
         private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             if (e.Message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
@@ -24,6 +24,8 @@ namespace TelegramBot
                 Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
             }
         }
+
+        [Obsolete]
         public void Get()
         {
             Bot.OnMessage += Bot_OnMessage;
