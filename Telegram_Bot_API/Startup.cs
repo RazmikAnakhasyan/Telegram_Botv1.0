@@ -1,6 +1,8 @@
 using API.Extensions;
 using Core;
 using DataAccess;
+using Core.Services;
+using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -32,7 +34,7 @@ namespace API
          
             DataAccessRegistry.RegisterServices(services);
             DataAccessRegistry.RegisterDBContext(services, Configuration.GetConnectionString("Default"));
-            ServiceRegistry.RegisterServices(services);
+                      RepositoryRegistry.RegisterRepositories(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -4,14 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Models
+namespace Shared.Models.Currency
 {
     public class Currency
     {
-       public int ID { get; set; }
         public string Code { get; set; }
-        public string Description { get;set; }
-
-   
+        public int ID { get; set; }
     }
 }
