@@ -29,6 +29,7 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
+         
             DataAccessRegistry.RegisterServices(services);
             DataAccessRegistry.RegisterDBContext(services, Configuration.GetConnectionString("Default"));
             ServiceRegistry.RegisterServices(services);

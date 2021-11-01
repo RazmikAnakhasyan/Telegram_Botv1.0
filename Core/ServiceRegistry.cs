@@ -1,6 +1,8 @@
 ﻿using Core.Services.Interfaces;
 using Core.Services.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Core.Services;
+
 
 namespace Core
 {
@@ -10,6 +12,9 @@ namespace Core
         {
             services.AddScoped<ICurrencies, Currencies>();
             services.AddScoped<IBestRates, BestRates>();
+            services.AddScoped<IBestAvailableRateService, BestAvailableRateService>();
+ 
         }
+  
     }
 }
