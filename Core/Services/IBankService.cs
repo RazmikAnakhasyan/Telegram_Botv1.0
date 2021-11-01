@@ -1,4 +1,5 @@
-﻿using Shared.Models.Banks;
+﻿using DataAccess.Models;
+using Shared.Models.Banks;
 using Shared.Models.Rates;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,6 @@ namespace Core.Services
 {
     public  interface IBankService
     {
-       public IEnumerable<Rates> AllRates();
+       public IEnumerable<RatesModel> AllRates();
     }
 }

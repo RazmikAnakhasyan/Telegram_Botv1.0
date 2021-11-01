@@ -1,4 +1,4 @@
-﻿using CodeFirst.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repository;
 using Shared.Models.Currency;
 using System;
@@ -16,14 +16,14 @@ namespace Core.Services
         {
             _currencyRepository = currencyRepository;
         }
-        public IEnumerable<Currency> Available()
+        public IEnumerable<Shared.Models.Currency.CurrencyModel> Available()
         {
             return _currencyRepository.All().
                  Select(MapCurrencies);                    
         }
-        private Currency MapCurrencies(Currency currency)
+        private CurrencyModel MapCurrencies(Currency currency)
         {
-            return new  Currency
+            return new  CurrencyModel
             {
                 Code = currency.Code
             };

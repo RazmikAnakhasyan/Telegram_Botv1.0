@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace DataAccess.Models
 {
-    class DBModel:DbContext
+    public class DBModel:DbContext
     {
         public DBModel(DbContextOptions<DBModel> options)
          : base(options)
@@ -16,7 +16,7 @@ namespace DataAccess.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB; initial catalog = Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
+            optionsBuilder.UseSqlServer(@"Data Source=localhost; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -9,6 +9,6 @@ namespace Core.Services
 {
     public interface ICurrencyService
     {
-        IEnumerable<Currency> Available();
+        IEnumerable<CurrencyModel> Available();
     }
 }

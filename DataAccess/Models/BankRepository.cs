@@ -1,4 +1,4 @@
-﻿using CodeFirst.Models;
+﻿using DataAccess.Models;
 using Shared.Models.Banks;
 using Shared.Models.Rates;
 using System;
@@ -17,7 +17,7 @@ namespace DataAccess.Repository
             _context = context;
         }
 
-      public  IEnumerable<Rates> All()
+      public  IEnumerable<Rate> All()
         {
             return _context.Rates;
         }

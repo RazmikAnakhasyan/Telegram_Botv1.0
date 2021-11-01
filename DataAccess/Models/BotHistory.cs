@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    class BotHistory
+    public class BotHistory
     {
-
 
         public int ID { get; set; }
         public string ChatId { get; set; }

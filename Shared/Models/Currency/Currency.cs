@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Shared.Models.Currency
 {
-    public class Currency
+    public class CurrencyModel
     {
         public string Code { get; set; }
         public int ID { get; set; }

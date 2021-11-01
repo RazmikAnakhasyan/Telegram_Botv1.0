@@ -1,4 +1,4 @@
-﻿using CodeFirst.Models;
+﻿using DataAccess.Models;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;

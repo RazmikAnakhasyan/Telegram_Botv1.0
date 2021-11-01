@@ -1,11 +1,6 @@
-﻿using CodeFirst.Models;
-using Shared.Models.Currency;
-using System;
+﻿
+using DataAccess.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccess.Repository;
 
 namespace DataAccess.Repository
 {
@@ -20,5 +15,6 @@ namespace DataAccess.Repository
         {
             return _context.Currencies;
         }
+
     }
 }

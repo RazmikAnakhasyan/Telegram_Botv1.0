@@ -1,4 +1,5 @@
-﻿using DataAccess.Repository;
+﻿using DataAccess.Models;
+using DataAccess.Repository;
 using Shared.Models.Banks;
 using Shared.Models.Rates;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    class BankService:IBankService
+    class BankService : IBankService
     {
         private readonly IBankRepository _bankRepository;
         public BankService(IBankRepository bankRepository)
@@ -17,23 +18,23 @@ namespace Core.Services
             _bankRepository = bankRepository;
         }
 
-       public IEnumerable<Rates> AllRates()
+        public IEnumerable<RatesModel> AllRates()
         {
             return _bankRepository.All().Select(MapRates);
         }
 
-        private Rates MapRates(Rates _rates)
+        private RatesModel MapRates(Rate _rates)
         {
-            return new Rates
+            return new RatesModel
             {
                 ID = _rates.ID,
                 BankId = _rates.BankId,
-                BuyValue =_rates.BuyValue,
+                BuyValue = _rates.BuyValue,
                 FromCurrency = _rates.FromCurrency,
                 LastUpdated = _rates.LastUpdated,
                 SellValue = _rates.SellValue,
                 ToCurrency = _rates.ToCurrency
-            
+
             };
         }
     }

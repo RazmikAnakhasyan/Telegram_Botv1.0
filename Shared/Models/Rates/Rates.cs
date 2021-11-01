@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Shared.Models.Banks;
 namespace Shared.Models.Rates
 {
-    public class Rates
+    public class RatesModel
     {
        public int ID { get; set; }
         public string FromCurrency { get; set; }
