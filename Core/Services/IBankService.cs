@@ -11,6 +11,6 @@ namespace Core.Services
 {
     public  interface IBankService
     {
-       public IEnumerable<RatesModel> AllRates();
+       public IEnumerable<RatesInfoModel> AllRates();
     }
 }

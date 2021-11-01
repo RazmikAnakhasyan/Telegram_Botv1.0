@@ -20,8 +20,7 @@ namespace API.Controller
             _bestAvailableRate = bestAvailableRate;
         }
 
-        [Route("/{currency}/all")]
-        [HttpGet]
+        [HttpGet("/{currency}/all")]
         public List<CurrenciesConvertDetails> All(string currency, double amount)
         {
             return _currencies.GetConvertInfoForAllCurrencies(currency, amount);

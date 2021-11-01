@@ -18,7 +18,7 @@ namespace Core.Services
             services.AddScoped<ICurrencyService, CurrrencyService>();
             services.AddScoped<IBankService, BankService>();
             services.AddScoped<ICurrencies, Currencies>();
-            services.AddScoped<IBestRates, BestRates>();
+            services.AddScoped<IBestRateService, BestRateService>();
             services.AddScoped<IBestAvailableRateService, BestAvailableRateService>();
  
         }

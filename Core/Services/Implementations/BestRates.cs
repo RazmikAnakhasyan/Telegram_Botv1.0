@@ -7,11 +7,11 @@ using System.Collections.Generic;
 
 namespace Core.Services.Services
 {
-    public class BestRates : IBestRates
+    public class BestRateService : IBestRateService
     {
         private readonly IBestRatesRepository _bestRates;
         private readonly IMapper _mapper;
-        public BestRates(IBestRatesRepository bestRates, IMapper mapper)
+        public BestRateService(IBestRatesRepository bestRates, IMapper mapper)
         {
             _bestRates = bestRates;
             _mapper = mapper;

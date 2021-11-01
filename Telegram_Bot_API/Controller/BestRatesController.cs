@@ -10,13 +10,14 @@ namespace API.Controller
     [Route("api/[controller]/best")]
     public class BestRatesController : ControllerBase
     {
-        private readonly IBestRates _bestRates;
+        private readonly IBestRateService _bestRates;
 
-        public BestRatesController(IBestRates bestRates)
+        public BestRatesController(IBestRateService bestRates)
         {
             _bestRates = bestRates;
         }
-        [HttpPost("BestRates")]
+
+        [HttpGet("BestRates")]
         public List<CurrencyRate> GetBestRates()
         {
             return _bestRates.GetBestRates();

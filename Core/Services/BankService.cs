@@ -18,14 +18,14 @@ namespace Core.Services
             _bankRepository = bankRepository;
         }
 
-        public IEnumerable<RatesModel> AllRates()
+        public IEnumerable<RatesInfoModel> AllRates()
         {
             return _bankRepository.All().Select(MapRates);
         }
 
-        private RatesModel MapRates(Rate _rates)
+        private RatesInfoModel MapRates(Rate _rates)
         {
-            return new RatesModel
+            return new RatesInfoModel
             {
                 ID = _rates.ID,
                 BankId = _rates.BankId,

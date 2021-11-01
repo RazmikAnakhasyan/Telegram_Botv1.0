@@ -22,16 +22,23 @@ namespace DataAccess.Repositaries.Services
                 .Select(_ => _.Code).ToList();
             foreach (var currency in rates)
             {
-                Rate rate = new();
-                rate.BuyValue = _dBModel.Rates
+                try
+                {
+                    Rate rate = new();
+                    rate.BuyValue = _dBModel.Rates
+                           .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
+                           .Min(_ => _.BuyValue)
+                           ;
+                    rate.SellValue = _dBModel.Rates
                        .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
-                       .Min(_ => _.BuyValue)
-                       ;
-                rate.SellValue = _dBModel.Rates
-                   .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
-                   .Max(_ => _.SellValue);
-                rate.ToCurrency = currency;
-                bestRates.Add(rate);
+                       .Max(_ => _.SellValue);
+                    rate.ToCurrency = currency;
+                    bestRates.Add(rate);
+                }
+                catch
+                {
+                    //TODO: Review
+                }
             }
             return bestRates;
         }
