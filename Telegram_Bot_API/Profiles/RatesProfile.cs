@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.Model;
-using DataAccess.Entities;
+using DataAccess.Models;
 
 namespace API.Profiles
 {

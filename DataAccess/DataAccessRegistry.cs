@@ -1,4 +1,4 @@
-﻿using DataAccess.Entities;
+﻿using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
 using DataAccess.Repositaries.Services;
 using Microsoft.EntityFrameworkCore;

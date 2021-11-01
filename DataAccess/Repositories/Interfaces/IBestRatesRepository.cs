@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DataAccess.Entities;
+using DataAccess.Models;
 namespace DataAccess.Repositaries.Interfaces
 {
     public interface IBestRatesRepository
