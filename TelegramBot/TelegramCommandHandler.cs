@@ -26,6 +26,7 @@ namespace TelegramBot
                 {
                     HttpClient client = new HttpClient();
                     HttpResponseMessage response = await client.GetAsync("https://localhost:44363/api/BestRates/best/BestRates");
+                    string responsemessage = await response.Content.ReadAsStringAsync();
                     await Bot.SendTextMessageAsync(e.Message.Chat.Id, responsemessage);
                 }
                 else
