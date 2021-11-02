@@ -16,7 +16,7 @@ namespace DataAccess.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
+            optionsBuilder.UseSqlServer(@"Data Source=PUNCK2021\MSSQLSERVER01; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)

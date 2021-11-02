@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.IO;
+using System.Net.Http;
 using Telegram.Bot;
 
 namespace TelegramBot
@@ -9,19 +10,25 @@ namespace TelegramBot
     {
         private readonly string _token;
         private readonly TelegramBotClient Bot;
-        public TelegramCommandHandler()
+        public TelegramCommandHandler(string Token)
         {
-            Settings settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+            Settings settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("C:\\Users\\User\\source\\repos\\Telegram_Bot_API\\TelegramBot\\settings.json"));
             _token = settings.Token;
             Bot = new TelegramBotClient(_token);
         }
 
         [Obsolete]
-        private void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
+        private async void Bot_OnMessage(object sender, Telegram.Bot.Args.MessageEventArgs e)
         {
             if (e.Message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
             {
-                Bot.SendTextMessageAsync(e.Message.Chat.Id, e.Message.Text);
+                if (e.Message.Text == "/AllBest")
+                {
+                    HttpClient client = new HttpClient();
+                    HttpResponseMessage response = await client.GetAsync("https://localhost:44363/api/currency/all");
+                    string responsemessage = await response.Content.ReadAsStringAsync();
+                    await Bot.SendTextMessageAsync(e.Message.Chat.Id, responsemessage);
+                }
             }
         }
 

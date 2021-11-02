@@ -9,7 +9,7 @@ namespace TelegramBot
         [Obsolete]
         static void Main(string[] args)
         {
-            TelegramCommandHandler telegram = new();
+            TelegramCommandHandler telegram = new TelegramCommandHandler("ddfdf");
             telegram.Get();
         }
     }
