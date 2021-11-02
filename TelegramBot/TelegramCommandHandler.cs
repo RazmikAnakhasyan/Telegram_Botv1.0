@@ -25,9 +25,12 @@ namespace TelegramBot
                 if (e.Message.Text == "/AllBest")
                 {
                     HttpClient client = new HttpClient();
-                    HttpResponseMessage response = await client.GetAsync("https://localhost:44363/api/currency/all");
-                    string responsemessage = await response.Content.ReadAsStringAsync();
+                    HttpResponseMessage response = await client.GetAsync("https://localhost:44363/api/BestRates/best/BestRates");
                     await Bot.SendTextMessageAsync(e.Message.Chat.Id, responsemessage);
+                }
+                else
+                {
+                    await Bot.SendTextMessageAsync(e.Message.Chat.Id, "UnHandled Command!!!");
                 }
             }
         }

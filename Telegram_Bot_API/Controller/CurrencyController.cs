@@ -41,9 +41,9 @@ namespace API.Controller
             return _bankService.AllRates();
         }
         [HttpGet("ActivateBot")]
-        public void lol()
+        public   void AllBest()
         {
-            telegram.Get();
+             telegram.Get();
         }
        
     }
