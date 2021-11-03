@@ -1,4 +1,5 @@
-﻿using Core.Model;
+﻿using DataAccess.Models;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Core.Services.Interfaces
 {
     public interface IBestRateService
     {
-        List<CurrencyRate> GetBestRates();
+        IEnumerable<BestRateModel> GetBestRates();
     }
 }

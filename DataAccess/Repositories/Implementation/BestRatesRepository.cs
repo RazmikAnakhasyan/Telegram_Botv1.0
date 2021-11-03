@@ -1,5 +1,7 @@
 ﻿using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,49 +16,56 @@ namespace DataAccess.Repositaries.Services
         {
             _dBModel = dBModel;
         }
-        public List<Rate> GetBestRates()
+        public IEnumerable<BestRateModel> GetBestRates()
         {
 
-            List<Rate> bestRates = new();
+            List<BestRateModel> bestRates = new();
             var currencies = _dBModel.Currencies
                 .Where(x => x.Code != _baseCurrency)
                 .Select(_ => _.Code).ToList();
-            var banks = _dBModel.Banks.ToList();
 
-            var query = _dBModel.Rates.OrderBy(_ => _.LastUpdated);
-
+            var lastIteration = _dBModel.Rates.Max(_ => _.Iteration);
+            var lastRates = _dBModel.Rates.Where(_ => _.Iteration == lastIteration);
+               
 
             foreach (var currency in currencies)
             {
-                try
+                var bestRateModel = new BestRateModel();
+
+                var currencyRate = lastRates
+                           .Where(_ => _.FromCurrency == currency && _.ToCurrency == _baseCurrency)
+                           .Include(_ => _.Bank);
+
+                var currencyRateBuy = currencyRate
+                           .OrderByDescending(_ => _.BuyValue)
+                           .FirstOrDefault();
+
+                var currencyRateSell = currencyRate
+                    .OrderBy(_ => _.SellValue)
+                    .FirstOrDefault();
+                if(currencyRateBuy != null)
                 {
-                    Rate rate = new();
-                    rate.BuyValue = _dBModel.Rates
-                           .Where(_ => _.ToCurrency == currency && _.FromCurrency == _baseCurrency)
-                           .Min(_ => _.BuyValue)
-                           ;
-                    rate.SellValue = _dBModel.Rates
-                       .Where(_ => _.ToCurrency == currency && _.FromCurrency == _baseCurrency)
-                       .Max(_ => _.SellValue);
-                     rate.ToCurrency = currency;
-                    bestRates.Add(rate);
+                    bestRateModel.BestBankForBuying = currencyRateBuy.Bank.BankName;
+                    bestRateModel.BuyValue = currencyRateBuy.BuyValue;
+                   
                 }
-                catch (Exception ex)
+
+                if(currencyRateSell != null)
                 {
-                    //TODO: Review
+                    bestRateModel.BestBankForSelling = currencyRateSell.Bank.BankName;
+                    bestRateModel.SellValue = currencyRateSell.SellValue;
                 }
+
+                if(currencyRateBuy != null || currencyRateSell != null)
+                {
+                    bestRateModel.FromCurrency = currency;
+                    bestRateModel.ToCurrency = _baseCurrency;
+                    bestRates.Add(bestRateModel);
+                }
+               
             }
             return bestRates;
         }
 
-       
-    }
-    public class BestRateModel
-    {
-        public string FromCurrency { get; set; }
-        public string ToCurrency { get; set; }
-        public string BankName { get; set; }
-        public double BuyValue { get; set; }
-        public double SellValue { get; set; }
     }
 }

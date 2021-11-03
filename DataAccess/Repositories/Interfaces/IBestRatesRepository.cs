@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using DataAccess.Models;
+using Shared.Models;
+
 namespace DataAccess.Repositaries.Interfaces
 {
     public interface IBestRatesRepository
     {
-        List<Rate> GetBestRates();
+        IEnumerable<BestRateModel> GetBestRates();
     }
 }

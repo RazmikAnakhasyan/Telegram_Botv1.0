@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using Core.Model;
 using Core.Services.Interfaces;
-using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
+using Shared.Models;
 using System.Collections.Generic;
 
 namespace Core.Services.Services
@@ -16,10 +15,10 @@ namespace Core.Services.Services
             _bestRates = bestRates;
             _mapper = mapper;
         }
-        public List<CurrencyRate> GetBestRates()
+        public IEnumerable<BestRateModel> GetBestRates()
         {
-            List<Rate> rates = _bestRates.GetBestRates();
-            return _mapper.Map<List<CurrencyRate>>(rates);
+            var rates = _bestRates.GetBestRates();
+            return rates;
         }
     }
 }

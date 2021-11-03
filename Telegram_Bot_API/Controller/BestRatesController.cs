@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Core.Model;
 using Core.Services.Interfaces;
+using DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Models;
 using System.Collections.Generic;
 
 namespace API.Controller
@@ -18,7 +19,7 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public List<CurrencyRate> GetBestRates()
+        public IEnumerable<BestRateModel> GetBestRates()
         {
             return _bestRates.GetBestRates();
         }

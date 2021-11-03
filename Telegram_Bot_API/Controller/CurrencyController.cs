@@ -1,5 +1,4 @@
-﻿using Core.Model;
-using Core.Services;
+﻿using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Models.Currency;
 using Shared.Models.Rates;
