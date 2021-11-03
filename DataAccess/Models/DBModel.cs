@@ -74,7 +74,9 @@ namespace DataAccess.Models
 
                 entity.HasIndex(e => e.ToCurrency, "IX_Rates_ToCurrency");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id).ValueGeneratedOnAdd();
+
+                entity.Property(e => e.Iteration).IsRequired();
 
                 entity.Property(e => e.BuyValue).HasColumnType("decimal(18, 2)");
 

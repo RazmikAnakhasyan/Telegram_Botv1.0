@@ -89,7 +89,9 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Rate", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BankId")
                         .HasColumnType("int");
@@ -101,6 +103,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("Iteration")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");

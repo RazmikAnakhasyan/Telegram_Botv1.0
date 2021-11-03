@@ -9,6 +9,7 @@ namespace DataAccess.Repositaries.Services
     class BestRatesRepository : IBestRatesRepository
     {
         private readonly DbModel _dBModel;
+        private readonly string _baseCurrency = "AMD";
         public BestRatesRepository(DbModel dBModel)
         {
             _dBModel = dBModel;
@@ -17,30 +18,45 @@ namespace DataAccess.Repositaries.Services
         {
 
             List<Rate> bestRates = new();
-            List<string> rates = _dBModel.Currencies
-                .Where(x=>x.Code != "AMD")
+            var currencies = _dBModel.Currencies
+                .Where(x => x.Code != _baseCurrency)
                 .Select(_ => _.Code).ToList();
-            foreach (var currency in rates)
+            var banks = _dBModel.Banks.ToList();
+
+            var query = _dBModel.Rates.OrderBy(_ => _.LastUpdated);
+
+
+            foreach (var currency in currencies)
             {
                 try
                 {
                     Rate rate = new();
                     rate.BuyValue = _dBModel.Rates
-                           .Where(_ => _.ToCurrency== currency && _.FromCurrency == "AMD")
+                           .Where(_ => _.ToCurrency == currency && _.FromCurrency == _baseCurrency)
                            .Min(_ => _.BuyValue)
                            ;
                     rate.SellValue = _dBModel.Rates
-                       .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
+                       .Where(_ => _.ToCurrency == currency && _.FromCurrency == _baseCurrency)
                        .Max(_ => _.SellValue);
-                  //  rate.ToCurrency = currency;
+                     rate.ToCurrency = currency;
                     bestRates.Add(rate);
                 }
-                catch
+                catch (Exception ex)
                 {
                     //TODO: Review
                 }
             }
             return bestRates;
         }
+
+       
+    }
+    public class BestRateModel
+    {
+        public string FromCurrency { get; set; }
+        public string ToCurrency { get; set; }
+        public string BankName { get; set; }
+        public double BuyValue { get; set; }
+        public double SellValue { get; set; }
     }
 }

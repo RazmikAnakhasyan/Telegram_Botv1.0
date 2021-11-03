@@ -12,6 +12,8 @@ namespace DataAccess.Models
         public string ToCurrency { get; set; }
         public decimal BuyValue { get; set; }
         public decimal SellValue { get; set; }
+
+        public int Iteration { get; set; }
         public int BankId { get; set; }
         public DateTime LastUpdated { get; set; }
 

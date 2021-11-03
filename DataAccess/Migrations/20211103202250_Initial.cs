@@ -54,11 +54,13 @@ namespace DataAccess.Migrations
                 name: "Rates",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FromCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     ToCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     BuyValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     SellValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Iteration = table.Column<int>(type: "int", nullable: false),
                     BankId = table.Column<int>(type: "int", nullable: false),
                     LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },

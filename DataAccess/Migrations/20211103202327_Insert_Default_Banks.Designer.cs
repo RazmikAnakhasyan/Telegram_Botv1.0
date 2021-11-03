@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DbModel))]
-    [Migration("20211103193625_Insert_Default_Banks")]
+    [Migration("20211103202327_Insert_Default_Banks")]
     partial class Insert_Default_Banks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,7 +91,9 @@ namespace DataAccess.Migrations
             modelBuilder.Entity("DataAccess.Models.Rate", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("BankId")
                         .HasColumnType("int");
@@ -103,6 +105,9 @@ namespace DataAccess.Migrations
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("Iteration")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("datetime2");
