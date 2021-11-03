@@ -1,5 +1,6 @@
 ﻿using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
+using Shared.Infrastructure;
 using Shared.Model;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,14 @@ namespace DataAccess.Repositaries.Services
     {
         private readonly DbModel _dBModel;
         private readonly IBestRatesRepository _bestRateRepository;
-        private readonly string _baseCurrency = "AMD";
+        private readonly string _baseCurrency;
 
-        public ConvertRepository(DbModel dBModel, IBestRatesRepository bestRatesRepository)
+        public ConvertRepository(DbModel dBModel, IBestRatesRepository bestRatesRepository, 
+            ISettingsProvider settingsProvider)
         {
             _dBModel = dBModel;
             _bestRateRepository = bestRatesRepository;
+            _baseCurrency = settingsProvider.BaseCurrency;
         }
 
         public CurrenciesConvertDetails Convert(string from, string to, decimal amount)

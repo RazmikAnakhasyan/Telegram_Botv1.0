@@ -1,6 +1,7 @@
 ﻿using DataAccess.Models;
 using DataAccess.Repositaries.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Shared.Infrastructure;
 using Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,11 @@ namespace DataAccess.Repositaries.Services
     class BestRatesRepository : IBestRatesRepository
     {
         private readonly DbModel _dBModel;
-        private readonly string _baseCurrency = "AMD";
-        public BestRatesRepository(DbModel dBModel)
+        private readonly string _baseCurrency;
+        public BestRatesRepository(DbModel dBModel, ISettingsProvider settingsProvider)
         {
             _dBModel = dBModel;
+            _baseCurrency = settingsProvider.BaseCurrency;
         }
         public IEnumerable<BestRateModel> GetBestRates()
         {

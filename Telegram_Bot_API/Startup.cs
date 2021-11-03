@@ -9,6 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Shared.Infrastructure;
+using API.Infrastructure;
 
 namespace API
 {
@@ -31,6 +33,7 @@ namespace API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
             });
 
+            services.AddSingleton<ISettingsProvider, ApiSettingsProvider>();
             ServiceRegistry.RegisterServices(services);
             DataAccessRegistry.RegisterServices(services);
             DataAccessRegistry.RegisterDBContext(services, Configuration.GetConnectionString("Default"));

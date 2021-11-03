@@ -7,6 +7,7 @@ using Shared.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using System.Linq;
+using Shared.Infrastructure;
 
 namespace API.Controller
 {
@@ -14,13 +15,13 @@ namespace API.Controller
     [Route("api/convert")]
     public class ConvertController : ControllerBase
     {
-        private readonly IBestRateService _bestAvailableRate;
         private readonly ICurrencies _currencies;
-        private readonly string _baseCurrency = "AMD";
-        public ConvertController(ICurrencies currencies, IBestRateService bestAvailableRate)
+        private readonly string _baseCurrency;
+        public ConvertController(ICurrencies currencies, 
+            ISettingsProvider settingsProvider)
         {
             _currencies = currencies;
-            _bestAvailableRate = bestAvailableRate;
+            _baseCurrency = settingsProvider.BaseCurrency;
         }
 
         [HttpGet("{currency}/all")]
