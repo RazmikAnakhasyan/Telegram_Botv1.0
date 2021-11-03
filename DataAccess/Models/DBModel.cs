@@ -16,7 +16,7 @@ namespace DataAccess.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=localhost; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
+            optionsBuilder.UseSqlServer(@"Data Source=LT0004573\TECH42; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -25,17 +25,18 @@ namespace DataAccess.Models
                 (_ => { 
                     _.Property(_c => _c.ID).IsRequired().ValueGeneratedOnAdd();
                     _.Property(_c => _c.Code).IsRequired().HasMaxLength(3);
-                    _.Property(_c => _c.Code).HasMaxLength(50);
                 }) ;
             modelBuilder.Entity<Currency>().HasKey(_ => _.ID);
 
             modelBuilder.Entity<Bank>
              (_ => {
-                 _.Property(_b => _b.ID).IsRequired().ValueGeneratedOnAdd();
+                 _.Property(_b => _b.Id).IsRequired().ValueGeneratedOnAdd();
                  _.Property(_b => _b.BankName).IsRequired().HasMaxLength(50);
                  _.Property(_b => _b.BankURL).HasMaxLength(500);
              });
-            modelBuilder.Entity<Bank>().HasKey(_ => _.ID);
+            modelBuilder.Entity<Bank>().HasKey(_ => _.Id);
+
+         
 
 
             foreach (var prop in typeof(Rate).GetProperties())
@@ -47,22 +48,17 @@ namespace DataAccess.Models
             }
             modelBuilder.Entity<Rate>
                 (_ => {
-                    _.Property(_r => _r.ID).ValueGeneratedOnAdd();
-                    _.Property(_r => _r.FromCurrency).HasMaxLength(3);
-                    _.Property(_r => _r.ToCurrency).HasMaxLength(3);
+                    _.Property(_r => _r.Id).ValueGeneratedOnAdd();
                     _.Property(_r => _r.LastUpdated).HasColumnType("datetime2");
                 });
 
-            modelBuilder.Entity<Rate>().HasKey(_ => _.ID);
+            modelBuilder.Entity<Rate>().HasKey(_ => new { _.Id, _.BankId });
             modelBuilder.Entity<Rate>().HasIndex(_ => _.FromCurrency);
             modelBuilder.Entity<Rate>().HasIndex(_ => _.ToCurrency);
+            modelBuilder.Entity<Rate>().Property(_ => _.Bank).IsRequired();
 
-            //modelBuilder.Entity<Bank>().HasMany(_ => _.Rates)
-            //    .WithOne(_ => _.Bank);
-
-            //modelBuilder.Entity<Rate>().HasOne(_ => _.FromCurrency);
-            //modelBuilder.Entity<Rate>().HasOne(_ => _.ToCurrency);
-
+           // modelBuilder.Entity<Rate>().HasOne(_ => _.Bank).WithMany(_ => _.Rates);
+          
 
             modelBuilder.Entity<BotHistory>
             (_ => {

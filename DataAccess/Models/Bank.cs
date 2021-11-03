@@ -8,10 +8,9 @@ namespace DataAccess.Models
 {
    public class Bank
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string BankName { get; set; }
         public string BankURL { get; set; }
 
-        //public ICollection<Rate> Rates { get; set; }
     }
 }

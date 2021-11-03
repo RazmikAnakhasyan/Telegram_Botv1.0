@@ -19,7 +19,7 @@ namespace DataAccess.Repositaries.Services
         {
             List<CurrenciesConvertDetails> convertDetails = new();
             List<Rate> context = _dBModel.Rates
-                .Where(_ => _.FromCurrency == currency).ToList();
+                .Where(_ => _.FromCurrency.Code == currency).ToList();
             foreach(var rates in context)
             {
                 CurrenciesConvertDetails currenciesConvert = new();

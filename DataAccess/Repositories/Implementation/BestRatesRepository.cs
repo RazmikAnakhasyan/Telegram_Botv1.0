@@ -26,13 +26,13 @@ namespace DataAccess.Repositaries.Services
                 {
                     Rate rate = new();
                     rate.BuyValue = _dBModel.Rates
-                           .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
+                           .Where(_ => _.ToCurrency.Code== currency && _.FromCurrency.Code == "AMD")
                            .Min(_ => _.BuyValue)
                            ;
                     rate.SellValue = _dBModel.Rates
-                       .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
+                       .Where(_ => _.ToCurrency.Code == currency && _.FromCurrency.Code == "AMD")
                        .Max(_ => _.SellValue);
-                    rate.ToCurrency = currency;
+                  //  rate.ToCurrency = currency;
                     bestRates.Add(rate);
                 }
                 catch

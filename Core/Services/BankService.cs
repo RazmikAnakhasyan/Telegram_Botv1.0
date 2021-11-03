@@ -27,13 +27,13 @@ namespace Core.Services
         {
             return new RatesInfoModel
             {
-                ID = _rates.ID,
-                BankId = _rates.BankId,
+                ID = _rates.Id,
+                BankId = _rates.Bank.Id,
                 BuyValue = _rates.BuyValue,
-                FromCurrency = _rates.FromCurrency,
+                FromCurrency = _rates.FromCurrency.Code,
                 LastUpdated = _rates.LastUpdated,
                 SellValue = _rates.SellValue,
-                ToCurrency = _rates.ToCurrency
+                ToCurrency = _rates.ToCurrency.Code
 
             };
         }
