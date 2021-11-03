@@ -7,4 +7,9 @@
 
         public decimal Value { get; set; }
     }
+
+    public class FromToConverter : CurrenciesConvertDetails
+    {
+        public string From { get; set; }
+    }
 }

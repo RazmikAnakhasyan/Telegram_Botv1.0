@@ -8,5 +8,6 @@ namespace Core.Services.Interfaces
     public interface ICurrencies
     {
         List<CurrenciesConvertDetails> GetConvertInfoForAllCurrencies(string currency, Double exchangedValue);
+        CurrenciesConvertDetails Convert(string from, string to, decimal amount);
     }
 }

@@ -14,6 +14,10 @@ namespace Core.Services.Services
             _convertRepository = convertRepository;
         }
 
+        public CurrenciesConvertDetails Convert(string from, string to, decimal amount)
+        {
+            return _convertRepository.Convert(from, to, amount);
+        }
 
         public List<CurrenciesConvertDetails> GetConvertInfoForAllCurrencies(string currency, double exchangedValue)
         {

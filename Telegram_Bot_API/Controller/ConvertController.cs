@@ -6,6 +6,7 @@ using Core.Services;
 using Shared.Models;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
+using System.Linq;
 
 namespace API.Controller
 {
@@ -13,9 +14,10 @@ namespace API.Controller
     [Route("api/convert")]
     public class ConvertController : ControllerBase
     {
-        private readonly IBestAvailableRateService _bestAvailableRate;
+        private readonly IBestRateService _bestAvailableRate;
         private readonly ICurrencies _currencies;
-        public ConvertController(ICurrencies currencies, IBestAvailableRateService bestAvailableRate)
+        private readonly string _baseCurrency = "AMD";
+        public ConvertController(ICurrencies currencies, IBestRateService bestAvailableRate)
         {
             _currencies = currencies;
             _bestAvailableRate = bestAvailableRate;
@@ -31,10 +33,14 @@ namespace API.Controller
         }
 
         [HttpGet]
-        public IActionResult Get(string fromCurrency, string toCurrency, decimal amount)
+        public IActionResult Get(string from, string to, decimal amount)
         {
-            BestAvailableRate r = _bestAvailableRate.GetBestAvailableRate(fromCurrency, toCurrency, amount);
-            return Ok(r);
+            if (amount == 0) return BadRequest("Amount must be specified");
+            from = string.IsNullOrEmpty(from) ? "USD" : from;
+            to = string.IsNullOrEmpty(to) ? _baseCurrency : to;
+
+            var bestRates = _currencies.Convert(from, to, amount);
+            return Ok(bestRates);
         }
 
     }

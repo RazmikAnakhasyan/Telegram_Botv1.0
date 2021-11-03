@@ -18,6 +18,35 @@ namespace DataAccess.Repositaries.Services
             _dBModel = dBModel;
             _bestRateRepository = bestRatesRepository;
         }
+
+        public CurrenciesConvertDetails Convert(string from, string to, decimal amount)
+        {
+            FromToConverter currenciesConvert = new();
+            currenciesConvert.To = to;
+            currenciesConvert.From = from;
+            var bests = _bestRateRepository.GetBestRates();
+            if (to == _baseCurrency)
+            {
+                if (bests.Count(_ => _.FromCurrency == from) == 0) return currenciesConvert;
+                currenciesConvert.Value = bests.Where(_ => _.FromCurrency == from).First().BuyValue * amount;
+            }
+            else if (from == _baseCurrency)
+            {
+                if (bests.Count(_ => _.FromCurrency == to) == 0) return currenciesConvert;
+                currenciesConvert.Value = (1 / bests.Where(_ => _.FromCurrency == to).First().BuyValue) * amount;
+            }
+            else
+            {
+                if (bests.Count(_ => _.FromCurrency == to) == 0) return currenciesConvert;
+                var fromCurrencyBest = bests.Where(_ => _.FromCurrency == from).First().BuyValue;
+                var toCurrencyBest = bests.Where(_ => _.FromCurrency == to).First().BuyValue;
+                currenciesConvert.Value = (fromCurrencyBest / toCurrencyBest) * amount;
+
+            }
+            return currenciesConvert;
+
+        }
+
         public List<CurrenciesConvertDetails> GetConvertDetails(string currency, double exchangedValue)
         {
             List<CurrenciesConvertDetails> convertDetails = new();
@@ -28,7 +57,6 @@ namespace DataAccess.Repositaries.Services
             {
                 CurrenciesConvertDetails currenciesConvert = new();
                 currenciesConvert.To = toCurrency;
-
 
                 if (toCurrency == _baseCurrency)
                 {
