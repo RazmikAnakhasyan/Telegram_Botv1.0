@@ -16,17 +16,18 @@ namespace Core.Services
         {
             _currencyRepository = currencyRepository;
         }
-        public IEnumerable<Shared.Models.Currency.CurrencyModel> Available()
+        public string Available()
         {
-            return _currencyRepository.All().
-                 Select(MapCurrencies);                    
-        }
-        private CurrencyModel MapCurrencies(Currency currency)
-        {
-            return new  CurrencyModel
+            StringBuilder str = new StringBuilder();
+            foreach (var item in _currencyRepository.All().Select(Map))
             {
-                Code = currency.Code
-            };
+                str.AppendLine(item);
+            }
+            return str.ToString();
+        }
+        private string Map(Currency currency)
+        {
+            return currency.Code + "-" + currency.Description;
         }
     }
 }

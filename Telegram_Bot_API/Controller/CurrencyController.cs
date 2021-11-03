@@ -26,7 +26,7 @@ namespace API.Controller
         }
 
         [HttpGet("/api/currency/available")]
-        public IEnumerable<CurrencyModel> Get()
+        public string Get()
         {
             return _currencyService.Available();
         }

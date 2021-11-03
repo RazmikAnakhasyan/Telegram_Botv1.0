@@ -42,6 +42,13 @@ namespace TelegramBot
                     case "/AllBest":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, GetAllBest());
                         break;
+                    case "/Available":
+                        {
+                            var message =await GetAvailable();
+                              await Bot.SendTextMessageAsync(e.Message.Chat.Id,message);
+                            break;
+                                
+                        }
                     //case "availableBanks":
                     //    {
                     //        using var response = await HttpClient.GetAsync("https://localhost:44363/api/currency/availableBanks");
@@ -55,6 +62,7 @@ namespace TelegramBot
                         break;
                 }
               
+
             }
         }
 
@@ -103,6 +111,14 @@ namespace TelegramBot
             }
             return builder.ToString();
 
+        }
+        public async Task<string> GetAvailable()
+        {
+            var url = $"{_baseUrl}api/currency/available";
+            var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return responseBody.ToString();
         }
 
     }
