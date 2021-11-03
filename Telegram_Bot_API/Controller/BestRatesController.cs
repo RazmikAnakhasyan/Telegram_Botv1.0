@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace API.Controller
 {
     [ApiController]
-    [Route("api/[controller]/best")]
+    [Route("api/[controller]")]
     public class BestRatesController : ControllerBase
     {
         private readonly IBestRateService _bestRates;
@@ -17,7 +17,7 @@ namespace API.Controller
             _bestRates = bestRates;
         }
 
-        [HttpGet("BestRates")]
+        [HttpGet]
         public List<CurrencyRate> GetBestRates()
         {
             return _bestRates.GetBestRates();
