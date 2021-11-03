@@ -1,0 +1,22 @@
+[
+  {
+    "baseCurrency": "USD",
+    "rates": {
+
+      "buy": 478,
+      "sell": 490
+    }
+
+  },
+  {
+    "baseCurrency": "EUR",
+    "rates": {
+
+      "buy": 510,
+      "sell": 515
+    }
+
+  }
+]
+
+

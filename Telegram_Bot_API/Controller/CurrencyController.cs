@@ -6,16 +6,20 @@ using Shared.Models.Rates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using TelegramBot;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Controller
 {
     [ApiController]
-    public class CurrencyController:ControllerBase
+    public class CurrencyController : ControllerBase
     {
         private readonly ICurrencyService _currencyService;
         private readonly IBankService _bankService;
-        public CurrencyController(ICurrencyService currencyService, IBankService bankService)
+        public IConfiguration Configuration { get; }
+        public CurrencyController(IBankService bankService, ICurrencyService currencyService)
         {
             _currencyService = currencyService;
             _bankService = bankService;
@@ -32,5 +36,6 @@ namespace API.Controller
         {
             return _bankService.AllRates();
         }
+
     }
 }

@@ -11,5 +11,6 @@ namespace Shared.Models
         public decimal SellValue { get; set; }
         public int BankId { get; set; }
         public DateTime LastUpdated { get; set; }
+        public string BankName => BankId.ToString();
     }
 }
