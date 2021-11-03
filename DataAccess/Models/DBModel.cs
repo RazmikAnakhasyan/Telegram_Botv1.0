@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -17,6 +19,18 @@ namespace DataAccess.Models
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                   .SetBasePath(Directory.GetCurrentDirectory())
+                   .AddJsonFile("appsettings.json")
+                   .Build();
+                var connectionString = configuration.GetConnectionString("Default");
+                optionsBuilder.UseSqlServer(connectionString);
+            }
+        }
         public virtual DbSet<Bank> Banks { get; set; }
         public virtual DbSet<BotHistory> BotHistories { get; set; }
         public virtual DbSet<Currency> Currencies { get; set; }

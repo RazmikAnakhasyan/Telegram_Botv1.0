@@ -9,9 +9,9 @@ namespace DataAccess.Repositaries.Services
 {
     class ConvertRepository : IConvertRepository
     {
-        private readonly DBModel _dBModel;
+        private readonly DbModel _dBModel;
 
-        public ConvertRepository(DBModel dBModel)
+        public ConvertRepository(DbModel dBModel)
         {
             _dBModel = dBModel;
         }
@@ -19,7 +19,7 @@ namespace DataAccess.Repositaries.Services
         {
             List<CurrenciesConvertDetails> convertDetails = new();
             List<Rate> context = _dBModel.Rates
-                .Where(_ => _.FromCurrency.Code == currency).ToList();
+                .Where(_ => _.FromCurrency == currency).ToList();
             foreach(var rates in context)
             {
                 CurrenciesConvertDetails currenciesConvert = new();

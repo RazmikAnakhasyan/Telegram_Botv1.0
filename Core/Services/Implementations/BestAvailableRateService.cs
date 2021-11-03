@@ -27,16 +27,16 @@ namespace Core.Services
             if (fromCurrency == "AMD")
             {
     
-               r = availableRates.First(_ => _.FromCurrency.Code == toCurrency     
-                                                && _.SellValue ==availableRates.Where(_ => _.FromCurrency.Code == toCurrency).OrderBy(_ => _.SellValue).FirstOrDefault().SellValue);
+               r = availableRates.First(_ => _.FromCurrency == toCurrency     
+                                                && _.SellValue ==availableRates.Where(_ => _.FromCurrency == toCurrency).OrderBy(_ => _.SellValue).FirstOrDefault().SellValue);
 
                 bestRate.BankName = _bestAvailableRateRepository.GetBankName(r.Bank.Id);
                 bestRate.Amount =Math.Round( amount / r.SellValue,2) ;
             }
             else if (toCurrency == "AMD")
             {
-                r = availableRates.First(_ => _.FromCurrency.Code == fromCurrency
-                                                   && _.BuyValue == availableRates.Where(_ => _.FromCurrency.Code == fromCurrency).OrderByDescending(_ => _.BuyValue ).FirstOrDefault().BuyValue);
+                r = availableRates.First(_ => _.FromCurrency == fromCurrency
+                                                   && _.BuyValue == availableRates.Where(_ => _.FromCurrency == fromCurrency).OrderByDescending(_ => _.BuyValue ).FirstOrDefault().BuyValue);
 
                 bestRate.BankName = _bestAvailableRateRepository.GetBankName(r.Bank.Id);
                 bestRate.Amount = Math.Round(amount * r.BuyValue, 2);
