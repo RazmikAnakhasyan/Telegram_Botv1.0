@@ -8,8 +8,8 @@ namespace DataAccess.Repositaries.Services
 {
     class BestRatesRepository : IBestRatesRepository
     {
-        private readonly DBModel _dBModel;
-        public BestRatesRepository(DBModel dBModel)
+        private readonly DbModel _dBModel;
+        public BestRatesRepository(DbModel dBModel)
         {
             _dBModel = dBModel;
         }
@@ -26,13 +26,13 @@ namespace DataAccess.Repositaries.Services
                 {
                     Rate rate = new();
                     rate.BuyValue = _dBModel.Rates
-                           .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
+                           .Where(_ => _.ToCurrency== currency && _.FromCurrency == "AMD")
                            .Min(_ => _.BuyValue)
                            ;
                     rate.SellValue = _dBModel.Rates
                        .Where(_ => _.ToCurrency == currency && _.FromCurrency == "AMD")
                        .Max(_ => _.SellValue);
-                    rate.ToCurrency = currency;
+                  //  rate.ToCurrency = currency;
                     bestRates.Add(rate);
                 }
                 catch

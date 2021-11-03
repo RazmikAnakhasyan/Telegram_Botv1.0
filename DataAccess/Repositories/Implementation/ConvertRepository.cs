@@ -9,9 +9,9 @@ namespace DataAccess.Repositaries.Services
 {
     class ConvertRepository : IConvertRepository
     {
-        private readonly DBModel _dBModel;
+        private readonly DbModel _dBModel;
 
-        public ConvertRepository(DBModel dBModel)
+        public ConvertRepository(DbModel dBModel)
         {
             _dBModel = dBModel;
         }

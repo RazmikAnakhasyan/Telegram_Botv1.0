@@ -27,8 +27,8 @@ namespace Core.Services
         {
             return new RatesInfoModel
             {
-                ID = _rates.ID,
-                BankId = _rates.BankId,
+                ID = _rates.Id,
+                BankId = _rates.Bank.Id,
                 BuyValue = _rates.BuyValue,
                 FromCurrency = _rates.FromCurrency,
                 LastUpdated = _rates.LastUpdated,

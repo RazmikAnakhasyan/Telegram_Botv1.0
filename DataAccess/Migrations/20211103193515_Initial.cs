@@ -42,22 +42,19 @@ namespace DataAccess.Migrations
                 name: "Currencies",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Currencies", x => x.ID);
+                    table.PrimaryKey("PK_Currencies_1", x => x.Code);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Rates",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<int>(type: "int", nullable: false),
                     FromCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     ToCurrency = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     BuyValue = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -67,8 +64,31 @@ namespace DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rates", x => x.ID);
+                    table.PrimaryKey("PK_Rates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rates_Banks",
+                        column: x => x.BankId,
+                        principalTable: "Banks",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rates_Currencies",
+                        column: x => x.FromCurrency,
+                        principalTable: "Currencies",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Rates_Currencies1",
+                        column: x => x.ToCurrency,
+                        principalTable: "Currencies",
+                        principalColumn: "Code",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rates_BankId",
+                table: "Rates",
+                column: "BankId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rates_FromCurrency",
@@ -84,16 +104,16 @@ namespace DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Banks");
-
-            migrationBuilder.DropTable(
                 name: "BotHistory");
 
             migrationBuilder.DropTable(
-                name: "Currencies");
+                name: "Rates");
 
             migrationBuilder.DropTable(
-                name: "Rates");
+                name: "Banks");
+
+            migrationBuilder.DropTable(
+                name: "Currencies");
         }
     }
 }

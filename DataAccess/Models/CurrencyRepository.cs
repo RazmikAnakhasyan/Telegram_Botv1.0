@@ -6,8 +6,8 @@ namespace DataAccess.Repository
 {
     internal class CurrencyRepository : ICurrencyRepository
     {
-        private readonly DBModel _context;
-        public CurrencyRepository(DBModel context)
+        private readonly DbModel _context;
+        public CurrencyRepository(DbModel context)
         {
             _context = context;
         }

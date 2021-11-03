@@ -1,23 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace DataAccess.Models
 {
-   public class Rate
+    public partial class Rate
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public string FromCurrency { get; set; }
         public string ToCurrency { get; set; }
         public decimal BuyValue { get; set; }
         public decimal SellValue { get; set; }
         public int BankId { get; set; }
         public DateTime LastUpdated { get; set; }
-        //public Bank Bank { get; set; }
 
-
-
+        public virtual Bank Bank { get; set; }
+        public virtual Currency FromCurrencyNavigation { get; set; }
+        public virtual Currency ToCurrencyNavigation { get; set; }
     }
 }

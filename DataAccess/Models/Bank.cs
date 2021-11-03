@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#nullable disable
 
 namespace DataAccess.Models
 {
-   public class Bank
+    public partial class Bank
     {
-        public int ID { get; set; }
-        public string BankName { get; set; }
-        public string BankURL { get; set; }
+        public Bank()
+        {
+            Rates = new HashSet<Rate>();
+        }
 
-        //public ICollection<Rate> Rates { get; set; }
+        public int Id { get; set; }
+        public string BankName { get; set; }
+        public string BankUrl { get; set; }
+
+        public virtual ICollection<Rate> Rates { get; set; }
     }
 }

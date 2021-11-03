@@ -6,8 +6,21 @@
 
   <ItemGroup>
     <Compile Remove="Entities\**" />
+    <Compile Remove="Migrations\**" />
     <EmbeddedResource Remove="Entities\**" />
+    <EmbeddedResource Remove="Migrations\**" />
     <None Remove="Entities\**" />
+    <None Remove="Migrations\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Migrations\20211103193515_Initial.cs" />
+    <Compile Include="Migrations\20211103193515_Initial.Designer.cs" />
+    <Compile Include="Migrations\20211103193625_Insert_Default_Banks.cs" />
+    <Compile Include="Migrations\20211103193625_Insert_Default_Banks.Designer.cs" />
+    <Compile Include="Migrations\20211103195242_Insert_Default_Currencies.cs" />
+    <Compile Include="Migrations\20211103195242_Insert_Default_Currencies.Designer.cs" />
+    <Compile Include="Migrations\DbModelModelSnapshot.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,13 +31,15 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.csproj" />
-    <Folder Include="Models\" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
