@@ -1,9 +1,12 @@
 ﻿using Newtonsoft.Json;
+using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Telegram.Bot;
 
 namespace TelegramBot
@@ -13,6 +16,7 @@ namespace TelegramBot
         private readonly string _token;
         private readonly TelegramBotClient Bot;
         private readonly string _baseUrl;
+       
         public TelegramCommandHandler()
         {
             Settings settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
@@ -26,21 +30,38 @@ namespace TelegramBot
         {
             if (e.Message.Type == Telegram.Bot.Types.Enums.MessageType.Text)
             {
-                if (e.Message.Text == "/AllBest")
+
+                switch (e.Message.Text)
                 {
-                    await Bot.SendTextMessageAsync(e.Message.Chat.Id, GetAllBest());
+                    case "all":
+                        {
+                            var message = await GetAll();
+                            await Bot.SendTextMessageAsync(e.Message.Chat.Id, message);
+                        }
+                        break;
+                    case "/AllBest":
+                            await Bot.SendTextMessageAsync(e.Message.Chat.Id, GetAllBest());
+                        break;
+                    //case "availableBanks":
+                    //    {
+                    //        using var response = await HttpClient.GetAsync("https://localhost:44363/api/currency/availableBanks");
+                    //        string apiResponse = await response.Content.ReadAsStringAsync();
+                    //        List<Rate> result = JsonConvert.DeserializeObject<List<Rate>>(apiResponse);
+                    //        await Bot.SendTextMessageAsync(e.Message.Chat.Id, apiResponse);
+                    //    }
+                    //    break;
+                    default:
+                        await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Command not handled");
+                        break;
                 }
-                else
-                {
-                    await Bot.SendTextMessageAsync(e.Message.Chat.Id, "UnHandled Command!!!");
-                }
+              
             }
         }
 
         [Obsolete]
         public void Get()
         {
-            Bot.OnMessage += Bot_OnMessage;
+            Bot.OnMessage +=  Bot_OnMessage;
             Bot.StartReceiving();
             Console.ReadLine();
             Bot.StopReceiving();
@@ -60,6 +81,28 @@ namespace TelegramBot
             }
 
             return messageBuilder.ToString();
+        }
+        public async Task<string> GetAll()
+        {
+            var httpClient = new HttpClient();
+            using var response = await httpClient.GetAsync("https://localhost:44363/api/currency/all");
+            string apiResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<List<Rate>>(apiResponse).GroupBy(_ => _.BankId);
+            var builder = new StringBuilder();
+            foreach(var gr in result)
+            {
+                builder.AppendLine($"{gr.First().BankName}");
+                foreach (var item in gr)
+                {
+                    builder.AppendLine($"{item.FromCurrency}:{item.ToCurrency}");
+                    builder.AppendLine($"{item.BuyValue}:{item.SellValue}");
+
+                }
+                builder.AppendLine($"Թարմացվել է: {gr.First().LastUpdated.ToShortDateString()}");
+                builder.AppendLine("--------------------------------------------");
+            }
+            return builder.ToString();
+
         }
 
     }
