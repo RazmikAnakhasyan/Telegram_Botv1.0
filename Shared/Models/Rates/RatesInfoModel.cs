@@ -15,5 +15,7 @@ namespace Shared.Models.Rates
         public decimal SellValue { get; set; }
         public int BankId { get; set; }
         public DateTime LastUpdated { get; set; }
+
+        public string BankName { get; set; }
     } 
 }

@@ -1,4 +1,5 @@
 ﻿using DataAccess.Models;
+using Microsoft.EntityFrameworkCore;
 using Shared.Models.Banks;
 using Shared.Models.Rates;
 using System;
@@ -19,7 +20,7 @@ namespace DataAccess.Repository
 
       public  IEnumerable<Rate> All()
         {
-            return _context.Rates;
+            return _context.Rates.Include(_ => _.Bank);
         }
     }
 }

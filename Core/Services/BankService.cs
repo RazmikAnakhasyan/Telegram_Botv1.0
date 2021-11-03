@@ -33,8 +33,8 @@ namespace Core.Services
                 FromCurrency = _rates.FromCurrency,
                 LastUpdated = _rates.LastUpdated,
                 SellValue = _rates.SellValue,
-                ToCurrency = _rates.ToCurrency
-
+                ToCurrency = _rates.ToCurrency,
+                BankName = _rates.Bank.BankName
             };
         }
     }
