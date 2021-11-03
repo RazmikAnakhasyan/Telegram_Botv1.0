@@ -11,8 +11,8 @@ namespace DataAccess.Repository
 {
     public class BankRepository : IBankRepository
     {
-        private readonly DBModel _context;
-        public BankRepository(DBModel context)
+        private readonly DbModel _context;
+        public BankRepository(DbModel context)
         {
             _context = context;
         }

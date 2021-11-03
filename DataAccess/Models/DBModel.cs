@@ -1,77 +1,101 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Configuration;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+#nullable disable
 
 namespace DataAccess.Models
 {
-    public class DBModel:DbContext
+    public partial class DbModel : DbContext
     {
-        public DBModel(DbContextOptions<DBModel> options)
-         : base(options)
+        public DbModel()
         {
         }
-        public DbSet<Currency> Currencies { get; set; }
-        public DbSet<Rate> Rates { get; set; }
-        public DbSet<Bank> Banks { get; set; }
-        public DbSet<BotHistory> BotHistory { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public DbModel(DbContextOptions<DbModel> options)
+            : base(options)
         {
-            optionsBuilder.UseSqlServer(@"Data Source=LT0004573\TECH42; initial catalog =Tech42_TelegramBotDB; integrated security = True; MultipleActiveResultSets = True");
-
         }
+
+        public virtual DbSet<Bank> Banks { get; set; }
+        public virtual DbSet<BotHistory> BotHistories { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Rate> Rates { get; set; }
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-             modelBuilder.Entity<Currency>
-                (_ => { 
-                    _.Property(_c => _c.ID).IsRequired().ValueGeneratedOnAdd();
-                    _.Property(_c => _c.Code).IsRequired().HasMaxLength(3);
-                }) ;
-            modelBuilder.Entity<Currency>().HasKey(_ => _.ID);
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<Bank>
-             (_ => {
-                 _.Property(_b => _b.Id).IsRequired().ValueGeneratedOnAdd();
-                 _.Property(_b => _b.BankName).IsRequired().HasMaxLength(50);
-                 _.Property(_b => _b.BankURL).HasMaxLength(500);
-             });
-            modelBuilder.Entity<Bank>().HasKey(_ => _.Id);
-
-         
-
-
-            foreach (var prop in typeof(Rate).GetProperties())
+            modelBuilder.Entity<Bank>(entity =>
             {
-                modelBuilder
-                    .Entity<Rate>()
-                    .Property(prop.Name)
-                    .IsRequired();
-            }
-            modelBuilder.Entity<Rate>
-                (_ => {
-                    _.Property(_r => _r.Id).ValueGeneratedOnAdd();
-                    _.Property(_r => _r.LastUpdated).HasColumnType("datetime2");
-                });
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-            modelBuilder.Entity<Rate>().HasKey(_ => new { _.Id, _.BankId });
-            modelBuilder.Entity<Rate>().HasIndex(_ => _.FromCurrency);
-            modelBuilder.Entity<Rate>().HasIndex(_ => _.ToCurrency);
-            modelBuilder.Entity<Rate>().Property(_ => _.Bank).IsRequired();
+                entity.Property(e => e.BankName)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
-           // modelBuilder.Entity<Rate>().HasOne(_ => _.Bank).WithMany(_ => _.Rates);
-          
-
-            modelBuilder.Entity<BotHistory>
-            (_ => {
-                _.Property(_b => _b.ID).IsRequired().ValueGeneratedOnAdd();
-                _.Property(_b => _b.Date).IsRequired().HasColumnType("datetime2");
-
+                entity.Property(e => e.BankUrl)
+                    .HasMaxLength(500)
+                    .HasColumnName("BankURL");
             });
-            modelBuilder.Entity<BotHistory>().HasKey(_ => _.ID);
 
-         
+            modelBuilder.Entity<BotHistory>(entity =>
+            {
+                entity.ToTable("BotHistory");
 
+                entity.Property(e => e.Id).HasColumnName("ID");
+            });
 
+            modelBuilder.Entity<Currency>(entity =>
+            {
+                entity.HasKey(e => e.Code)
+                    .HasName("PK_Currencies_1");
 
+                entity.Property(e => e.Code).HasMaxLength(3);
+            });
+
+            modelBuilder.Entity<Rate>(entity =>
+            {
+                entity.HasIndex(e => e.FromCurrency, "IX_Rates_FromCurrency");
+
+                entity.HasIndex(e => e.ToCurrency, "IX_Rates_ToCurrency");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.BuyValue).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.FromCurrency)
+                    .IsRequired()
+                    .HasMaxLength(3);
+
+                entity.Property(e => e.SellValue).HasColumnType("decimal(18, 2)");
+
+                entity.Property(e => e.ToCurrency)
+                    .IsRequired()
+                    .HasMaxLength(3);
+
+                entity.HasOne(d => d.Bank)
+                    .WithMany(p => p.Rates)
+                    .HasForeignKey(d => d.BankId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rates_Banks");
+
+                entity.HasOne(d => d.FromCurrencyNavigation)
+                    .WithMany(p => p.RateFromCurrencyNavigations)
+                    .HasForeignKey(d => d.FromCurrency)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rates_Currencies");
+
+                entity.HasOne(d => d.ToCurrencyNavigation)
+                    .WithMany(p => p.RateToCurrencyNavigations)
+                    .HasForeignKey(d => d.ToCurrency)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Rates_Currencies1");
+            });
+
+            OnModelCreatingPartial(modelBuilder);
         }
+
+        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

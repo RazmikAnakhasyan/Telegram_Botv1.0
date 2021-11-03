@@ -30,10 +30,10 @@ namespace Core.Services
                 ID = _rates.Id,
                 BankId = _rates.Bank.Id,
                 BuyValue = _rates.BuyValue,
-                FromCurrency = _rates.FromCurrency.Code,
+                FromCurrency = _rates.FromCurrency,
                 LastUpdated = _rates.LastUpdated,
                 SellValue = _rates.SellValue,
-                ToCurrency = _rates.ToCurrency.Code
+                ToCurrency = _rates.ToCurrency
 
             };
         }

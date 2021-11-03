@@ -19,7 +19,7 @@ namespace DataAccess
         }
         public static void RegisterDbContext(IServiceCollection services,string conenctionString)
         {
-            services.AddDbContext<DBModel>(_ => _.UseSqlServer(conenctionString));
+            services.AddDbContext<DbModel>(_ => _.UseSqlServer(conenctionString));
         }
     }
 }
