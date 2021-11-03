@@ -18,8 +18,8 @@
     <Compile Include="Migrations\20211103193515_Initial.Designer.cs" />
     <Compile Include="Migrations\20211103193625_Insert_Default_Banks.cs" />
     <Compile Include="Migrations\20211103193625_Insert_Default_Banks.Designer.cs" />
-    <Compile Include="Migrations\20211103193913_Insert_Default_Currencies.cs" />
-    <Compile Include="Migrations\20211103193913_Insert_Default_Currencies.Designer.cs" />
+    <Compile Include="Migrations\20211103195242_Insert_Default_Currencies.cs" />
+    <Compile Include="Migrations\20211103195242_Insert_Default_Currencies.Designer.cs" />
     <Compile Include="Migrations\DbModelModelSnapshot.cs" />
   </ItemGroup>
 

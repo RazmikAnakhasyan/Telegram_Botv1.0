@@ -10,7 +10,7 @@ namespace DataAccess.Migrations
   VALUES ('AMD', 'Armenian Dram'),
 		 ('USD', 'US Dollar'),
 		 ('EUR', 'Euro'),
-		 ('RUR', 'Russian Ruble'),
+		 ('RUB', 'Russian Ruble'),
 		 ('GBP', 'Great Britain Pound')");
         }
 

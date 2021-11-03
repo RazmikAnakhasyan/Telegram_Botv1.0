@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccess.Migrations
 {
     [DbContext(typeof(DbModel))]
-    [Migration("20211103193913_Insert_Default_Currencies")]
+    [Migration("20211103195242_Insert_Default_Currencies")]
     partial class Insert_Default_Currencies
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
