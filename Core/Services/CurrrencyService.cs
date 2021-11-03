@@ -18,14 +18,16 @@ namespace Core.Services
         }
         public string Available()
         {
-            return                   
-        }
-        private CurrencyModel MapCurrencies(Currency currency)
-        {
-            return new  CurrencyModel
+            StringBuilder str = new StringBuilder();
+            foreach (var item in _currencyRepository.All().Select(Map))
             {
-                Code = currency.Code
-            };
+                str.AppendLine(item);
+            }
+            return str.ToString();
+        }
+        private string Map(Currency currency)
+        {
+            return currency.Code + "-" + currency.Description;
         }
     }
 }
