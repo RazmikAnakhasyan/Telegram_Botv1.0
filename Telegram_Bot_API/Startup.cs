@@ -2,7 +2,6 @@ using API.Extensions;
 using Core;
 using DataAccess;
 using Core.Services;
-using DataAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
