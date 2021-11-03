@@ -16,10 +16,9 @@ namespace Core.Services
         {
             _currencyRepository = currencyRepository;
         }
-        public IEnumerable<Shared.Models.Currency.CurrencyModel> Available()
+        public string Available()
         {
-            return _currencyRepository.All().
-                 Select(MapCurrencies);                    
+            return                   
         }
         private CurrencyModel MapCurrencies(Currency currency)
         {
