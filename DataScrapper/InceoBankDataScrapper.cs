@@ -1,4 +1,5 @@
 ﻿using HtmlAgilityPack;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -11,34 +12,65 @@ namespace htmlWrapDemo
 
         public IEnumerable<CurrencyModel> Get()
         {
+            IEnumerable<CurrencyModel> models = null;
             var client = new HttpClient();
-            var html = client.GetStringAsync("https://www.inecobank.am")
-                .GetAwaiter()
-                .GetResult();
-
-            //var html = File.ReadAllText("test.html");
-            var doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            var nodes = doc.DocumentNode.SelectNodes("//*[@id='root']/div/main/div[3]/div[1]/div/div[2]/div[2]/div/div[2]/div").ToArray();
-            List<CurrencyModel> models = new List<CurrencyModel>();
-            foreach (var item in nodes)
+            try
             {
-                var tds = item.SelectNodes("div").ToArray();
-
-                try
+                var json = client.GetStringAsync("https://www.inecobank.am/api/rates/")
+                    .GetAwaiter()
+                    .GetResult();
+                models = JsonConvert.DeserializeObject<InecoDataModel>(json).Items
+                    .Where(_ => _.Card.Buy.HasValue && _.Card.Sell.HasValue)
+                    .Select(_ => new CurrencyModel
                 {
-
-                    var model = new CurrencyModel();
-                    model.Currency = tds[0].InnerText;
-                    model.BuyValue = decimal.Parse(tds[1].InnerText);
-                    model.SellValue = decimal.Parse(tds[2].InnerText);
-
-                    models.Add(model);
-                }
-                catch { }
+                    BuyValue = (decimal)_.Card.Buy,
+                    SellValue = (decimal)_.Card.Sell,
+                    Currency = _.Code
+                });
 
             }
+            catch { }
+
             return models;
+        }
+
+        public partial class InecoDataModel
+        {
+            [JsonProperty("success")]
+            public bool Success { get; set; }
+
+            [JsonProperty("items")]
+            public List<Item> Items { get; set; }
+        }
+
+        public partial class Item
+        {
+            [JsonProperty("code")]
+            public string Code { get; set; }
+
+            [JsonProperty("cash")]
+            public Card Cash { get; set; }
+
+            [JsonProperty("cashless")]
+            public Card Cashless { get; set; }
+
+            [JsonProperty("online")]
+            public Card Online { get; set; }
+
+            [JsonProperty("cb")]
+            public Card Cb { get; set; }
+
+            [JsonProperty("card")]
+            public Card Card { get; set; }
+        }
+
+        public partial class Card
+        {
+            [JsonProperty("buy")]
+            public double? Buy { get; set; }
+
+            [JsonProperty("sell")]
+            public double? Sell { get; set; }
         }
     }
 }
