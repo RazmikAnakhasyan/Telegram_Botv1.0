@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Shared.Models;
+using Shared.Models.Currency;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -117,7 +118,13 @@ namespace TelegramBot
             var client = new HttpClient();
             var response = await client.GetAsync(url);
             string responseBody = await response.Content.ReadAsStringAsync();
-            return responseBody.ToString();
+            var result = JsonConvert.DeserializeObject<List<CurrencyModel>>(responseBody);
+            var builder = new StringBuilder();
+            foreach (var item in result)
+            {
+                builder.AppendLine(item.Code+"-"+item.Description);
+            }
+            return builder.ToString();
         }
 
     }
