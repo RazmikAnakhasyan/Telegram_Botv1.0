@@ -29,9 +29,9 @@ namespace htmlWrapDemo
                 {
 
                     var model = new CurrencyModel();
-                    model.Currency = tds[0].InnerText.Replace(@"\n"," ");
-                    model.BuyValue = decimal.Parse(tds[1].InnerText);
-                    model.SellValue = decimal.Parse(tds[2].InnerText);
+                    model.Currency = tds[0].InnerText.Trim();
+                    model.BuyValue = decimal.Parse(tds[1].InnerText.Trim());
+                    model.SellValue = decimal.Parse(tds[2].InnerText.Trim());
 
                     models.Add(model);
                 }
