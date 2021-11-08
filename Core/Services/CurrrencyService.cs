@@ -18,7 +18,6 @@ namespace Core.Services
         }
         public IEnumerable<CurrencyModel> Available()
         {  
-            //String builder should be used in Telegram Bot :)
             return _currencyRepository.All().Select(Map);
         }
         private CurrencyModel Map(Currency currency)
