@@ -7,7 +7,7 @@ namespace htmlWrapDemo
 {
     public class UniBankDataScrapper : IDataScrapper
     {
-        public string BankName => "UNIBANK";
+        public int id => 5;
 
         public IEnumerable<CurrencyModel> Get()
         {

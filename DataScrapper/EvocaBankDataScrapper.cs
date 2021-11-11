@@ -7,7 +7,7 @@ namespace htmlWrapDemo
 {
     public class EvocaBankDataScrapper : IDataScrapper
     {
-        public string BankName => "EVOCA";
+        public int id=> 3;
 
         public IEnumerable<CurrencyModel> Get()
         {
