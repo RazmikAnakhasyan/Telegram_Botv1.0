@@ -12,4 +12,5 @@
         public RatesModel Rates { get; set; }
 
     }
+    
 }

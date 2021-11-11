@@ -1,4 +1,6 @@
 ﻿using DataAccess.Models;
+using DataAccess.Repositories.Implementation;
+using DataAccess.Repositories.Interfaces;
 using DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,7 @@ namespace DataAccess
         {
             services.AddScoped<ICurrencyRepository, CurrencyRepository>();
             services.AddScoped<IBankRepository, BankRepository>();
+            services.AddScoped<IRatesRepository, RatesRepository>();
         }
         public static void RegisterDbContext(IServiceCollection services,string conenctionString)
         {

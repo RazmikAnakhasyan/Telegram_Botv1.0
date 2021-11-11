@@ -7,7 +7,7 @@ namespace htmlWrapDemo
 {
     public class AmeriaBankDataScrapper : IDataScrapper
     {
-        public string BankName => "AMERIA";
+        public int Id => 2;
 
         public IEnumerable<CurrencyModel> Get()
         {
@@ -32,7 +32,7 @@ namespace htmlWrapDemo
                     model.Currency = tds[0].InnerText;
                     model.BuyValue = decimal.Parse(tds[1].InnerText);
                     model.SellValue = decimal.Parse(tds[2].InnerText);
-
+                    model.BankId = Id;
                     models.Add(model);
                 }
                 catch { }
