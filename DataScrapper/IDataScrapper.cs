@@ -9,7 +9,7 @@ namespace htmlWrapDemo
     {
         IEnumerable<CurrencyModel> Get();
 
-        int id { get; }
+        int Id { get; }
     }
 
 }

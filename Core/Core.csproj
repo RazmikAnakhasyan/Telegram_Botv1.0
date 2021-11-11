@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
-    <ProjectReference Include="..\DataScrapper\DataScrapper.csproj" />
 
   </ItemGroup>
 

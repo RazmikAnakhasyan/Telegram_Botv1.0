@@ -7,7 +7,7 @@ namespace htmlWrapDemo
 {
     public class UniBankDataScrapper : IDataScrapper
     {
-        public int id => 5;
+        public int Id => 5;
 
         public IEnumerable<CurrencyModel> Get()
         {
@@ -29,7 +29,7 @@ namespace htmlWrapDemo
                 model.Currency = nodes.ElementAt(0).InnerText.Trim();
                 model.BuyValue = decimal.Parse(nodes.ElementAt(1).InnerText.Trim());
                 model.SellValue = decimal.Parse(nodes.ElementAt(2).InnerText.Trim());
-
+                model.BankId = Id;
                 models.Add(model);
                 nodes = nodes.Skip(3);
             }

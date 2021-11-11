@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repositories.Interfaces
 {
-   public interface IDataScrapperRepository
+   public interface IRatesRepository
     {
-        void BulknInsert(List<Rate> currency);
+        void BulkInsert(IEnumerable<Rate> currency);
     }
 }

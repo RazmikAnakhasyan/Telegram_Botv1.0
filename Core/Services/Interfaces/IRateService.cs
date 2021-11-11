@@ -1,5 +1,4 @@
-﻿using htmlWrapDemo;
-using Shared.Models;
+﻿using Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Services.Interfaces
 {
-    public interface IAllData
+    public interface IRateService
     {
-        void BulknInsert(List<DataAccess.Models.Rate> currency);
+        void BulknInsert(IEnumerable<DataAccess.Models.Rate> currency);
     }
 }

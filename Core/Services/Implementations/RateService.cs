@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using Core.Services.Interfaces;
 using DataAccess.Models;
 using DataAccess.Repositories.Interfaces;
-using htmlWrapDemo;
 using Shared.Models;
 
 namespace Core
 {
-   public class DataService : IAllData
+   public class RateService : IRateService
     {
-        private readonly IDataScrapperRepository _dataScrapper;
-        public DataService(IDataScrapperRepository dataScrapper)
+        private readonly IRatesRepository _dataScrapper;
+        public RateService(IRatesRepository dataScrapper)
         {
             _dataScrapper = dataScrapper;
         }
-        public void BulknInsert(List<DataAccess.Models.Rate> rate)
+
+        public void BulknInsert(IEnumerable<DataAccess.Models.Rate> rate)
         {
-            _dataScrapper.BulknInsert(rate);
+            _dataScrapper.BulkInsert(rate);
         }
 
        

@@ -8,7 +8,7 @@ namespace htmlWrapDemo
 {
     public class InceoBankDataScrapper : IDataScrapper
     {
-        public int id=> 4;
+        public int Id => 4;
 
         public IEnumerable<CurrencyModel> Get()
         {
@@ -22,11 +22,12 @@ namespace htmlWrapDemo
                 models = JsonConvert.DeserializeObject<InecoDataModel>(json).Items
                     .Where(_ => _.Card.Buy.HasValue && _.Card.Sell.HasValue)
                     .Select(_ => new CurrencyModel
-                {
-                    BuyValue = (decimal)_.Card.Buy,
-                    SellValue = (decimal)_.Card.Sell,
-                    Currency = _.Code
-                });
+                    {
+                        BuyValue = (decimal)_.Card.Buy,
+                        SellValue = (decimal)_.Card.Sell,
+                        Currency = _.Code,
+                        BankId = Id
+                    });
 
             }
             catch { }
