@@ -31,12 +31,16 @@ namespace DataAccess.Repositaries.Services
             if (to == _baseCurrency)
             {
                 if (bests.Count(_ => _.FromCurrency == from) == 0) return currenciesConvert;
-                currenciesConvert.Value = bests.Where(_ => _.FromCurrency == from).First().BuyValue * amount;
+                var best = bests.Where(_ => _.FromCurrency == from).First();
+                currenciesConvert.Value =best.BuyValue * amount;
+                currenciesConvert.BestBank = best.BestBankForBuying;
             }
             else if (from == _baseCurrency)
             {
                 if (bests.Count(_ => _.FromCurrency == to) == 0) return currenciesConvert;
-                currenciesConvert.Value = (1 / bests.Where(_ => _.FromCurrency == to).First().BuyValue) * amount;
+                var best = bests.Where(_ => _.FromCurrency == to).First();
+                currenciesConvert.Value = (1 / best.BuyValue) * amount;
+                currenciesConvert.BestBank = best.BestBankForBuying;
             }
             else
             {
@@ -44,6 +48,7 @@ namespace DataAccess.Repositaries.Services
                 var fromCurrencyBest = bests.Where(_ => _.FromCurrency == from).First().BuyValue;
                 var toCurrencyBest = bests.Where(_ => _.FromCurrency == to).First().BuyValue;
                 currenciesConvert.Value = (fromCurrencyBest / toCurrencyBest) * amount;
+                currenciesConvert.BestBank = bests.Where(_ => _.FromCurrency == from).First().BestBankForBuying;
 
             }
             return currenciesConvert;
