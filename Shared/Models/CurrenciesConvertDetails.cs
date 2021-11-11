@@ -11,5 +11,6 @@
     public class FromToConverter : CurrenciesConvertDetails
     {
         public string From { get; set; }
+        public string BestBank { get; set; }
     }
 }

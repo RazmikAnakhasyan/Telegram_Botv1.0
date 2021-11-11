@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Shared.Model;
 using Shared.Models;
 using Shared.Models.Currency;
 using System;
@@ -7,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Telegram.Bot;
 
@@ -33,6 +35,14 @@ namespace TelegramBot
             {
                 try
                 {
+                    var pattern = @"(\d+)([A-Z]{3})[:]([A-Z]{3})";
+                    Regex regex = new Regex(pattern);
+                    if (regex.IsMatch(e.Message.Text))
+                    {
+                        var match = regex.Match(e.Message.Text).Groups;
+                        await Bot.SendTextMessageAsync(e.Message.Chat.Id, await BestChange(match[2].Value,match[3].Value,Double.Parse(match[1].Value)));
+                        return;
+                    }
                     switch (e.Message.Text)
                     {
                         case "all":
@@ -44,14 +54,7 @@ namespace TelegramBot
                         case "/Available":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAvailable());
                             break;
-                        //case "availableBanks":
-                        //    {
-                        //        using var response = await HttpClient.GetAsync("https://localhost:44363/api/currency/availableBanks");
-                        //        string apiResponse = await response.Content.ReadAsStringAsync();
-                        //        List<Rate> result = JsonConvert.DeserializeObject<List<Rate>>(apiResponse);
-                        //        await Bot.SendTextMessageAsync(e.Message.Chat.Id, apiResponse);
-                        //    }
-                        //    break;
+                       
                         default:
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Command not handled");
                             break;
@@ -124,6 +127,18 @@ namespace TelegramBot
             {
                 builder.AppendLine(item.Code+"-"+item.Description);
             }
+            return builder.ToString();
+        }
+        public async Task<string> BestChange(string from,string to,double amount)
+        {
+            var url = $"{_baseUrl}/api/convert/?from={from}&to={to}&amount={amount}";
+            var client = new HttpClient();
+            var response = await client.GetAsync(url);
+            string responseBody = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<FromToConverter>(responseBody);
+            var builder = new StringBuilder();
+            builder.AppendLine("Value:" + result.Value + result.To);
+            builder.AppendLine("Best Bank: " + result.BestBank);
             return builder.ToString();
         }
 
