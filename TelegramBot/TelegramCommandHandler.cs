@@ -35,12 +35,16 @@ namespace TelegramBot
             {
                 try
                 {
-                    var pattern = @"(\d+)([A-Z]{3})[:]([A-Z]{3})";
+                    var pattern = @"(\d+)([A-Z]{3})([:]([A-Z]{3})){0,1}";
                     Regex regex = new Regex(pattern);
                     if (regex.IsMatch(e.Message.Text))
                     {
+
                         var match = regex.Match(e.Message.Text).Groups;
-                        await Bot.SendTextMessageAsync(e.Message.Chat.Id, await BestChange(match[2].Value,match[3].Value,Double.Parse(match[1].Value)));
+                        var from = match[2].Value;
+                        var amount = double.Parse(match[1].Value);
+                        var to = match[4].Value;
+                        await Bot.SendTextMessageAsync(e.Message.Chat.Id, await BestChange(from, to, amount));
                         return;
                     }
                     switch (e.Message.Text)
@@ -54,7 +58,7 @@ namespace TelegramBot
                         case "/Available":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAvailable());
                             break;
-                       
+
                         default:
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Command not handled");
                             break;
@@ -86,7 +90,7 @@ namespace TelegramBot
             var messageBuilder = new StringBuilder();
             foreach (var item in data)
             {
-                messageBuilder.AppendLine(item.FromCurrency+item.FromCurrency.ToFlag());
+                messageBuilder.AppendLine(item.FromCurrency + item.FromCurrency.ToFlag());
                 messageBuilder.AppendLine($"ԱՌՔ: {item.BuyValue:#.##} ({item.BestBankForBuying})");
                 messageBuilder.AppendLine($"ՎԱՃԱՌՔ: {item.SellValue:#.##} ({item.BestBankForSelling})");
             }
@@ -125,25 +129,25 @@ namespace TelegramBot
             var builder = new StringBuilder();
             foreach (var item in result)
             {
-                builder.AppendLine(item.Code+"-"+item.Description);
+                builder.AppendLine(item.Code + "-" + item.Description);
             }
             return builder.ToString();
         }
-        public async Task<string> BestChange(string from,string to,double amount)
+        public async Task<string> BestChange(string from, string to, double amount)
         {
             var url = $"{_baseUrl}/api/convert/?from={from}&to={to}&amount={amount}";
             var client = new HttpClient();
             var response = await client.GetAsync(url);
             string responseBody = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<FromToConverter>(responseBody);
-            
+
             var builder = new StringBuilder();
             builder.AppendLine($"Արժեք՝ {result.Value:N}{result.To} {result.To.ToFlag()}");
             builder.AppendLine("Բանկը՝ " + result.BestBank);
             return builder.ToString();
         }
 
-     
+
 
     }
 }
