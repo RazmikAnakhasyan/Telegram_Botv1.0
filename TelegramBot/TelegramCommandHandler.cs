@@ -11,6 +11,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Telegram.Bot;
+using Telegram.Bot.Types;
 
 namespace TelegramBot
 {
@@ -22,7 +23,7 @@ namespace TelegramBot
 
         public TelegramCommandHandler()
         {
-            Settings settings = JsonConvert.DeserializeObject<Settings>(File.ReadAllText("settings.json"));
+            Settings settings = JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText("settings.json"));
             _token = settings.Token;
             Bot = new TelegramBotClient(_token);
             _baseUrl = settings.BaseUrl;
@@ -52,15 +53,15 @@ namespace TelegramBot
                         case "/all":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAll());
                             break;
-                        case "/AllBest":
+                        case "/allBest":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAllBest());
                             break;
-                        case "/Available":
+                        case "/available":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAvailable());
                             break;
 
                         default:
-                            await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Command not handled");
+                            await Bot.SendTextMessageAsync(e.Message.Chat.Id, "Անհասկանալի հրաման, խնդրում ենք մուտքարգել հրամաններից որևիցե մեկը");
                             break;
                     }
                 }
