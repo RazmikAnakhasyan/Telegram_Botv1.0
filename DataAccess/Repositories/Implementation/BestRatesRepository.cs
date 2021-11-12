@@ -49,6 +49,7 @@ namespace DataAccess.Repositaries.Services
                 {
                     bestRateModel.BestBankForBuying = currencyRateBuy.Bank.BankName;
                     bestRateModel.BuyValue = currencyRateBuy.BuyValue;
+                    bestRateModel.LastUpdated = currencyRateBuy.LastUpdated;
                    
                 }
 
@@ -56,6 +57,7 @@ namespace DataAccess.Repositaries.Services
                 {
                     bestRateModel.BestBankForSelling = currencyRateSell.Bank.BankName;
                     bestRateModel.SellValue = currencyRateSell.SellValue;
+                    bestRateModel.LastUpdated = currencyRateSell.LastUpdated;
                 }
 
                 if(currencyRateBuy != null || currencyRateSell != null)

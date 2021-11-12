@@ -94,7 +94,9 @@ namespace TelegramBot
                 messageBuilder.AppendLine(item.FromCurrency + item.FromCurrency.ToFlag());
                 messageBuilder.AppendLine($"ԱՌՔ: {item.BuyValue:#.##} ({item.BestBankForBuying})");
                 messageBuilder.AppendLine($"ՎԱՃԱՌՔ: {item.SellValue:#.##} ({item.BestBankForSelling})");
+                messageBuilder.AppendLine($"Թարմացվել է` {item.LastUpdated:G}");
             }
+
 
             return messageBuilder.ToString();
         }
@@ -114,7 +116,7 @@ namespace TelegramBot
                     builder.AppendLine($"{item.BuyValue:#.##} |  {item.SellValue:#.##}");
 
                 }
-                builder.AppendLine($"Թարմացվել է: {gr.First().LastUpdated.ToShortDateString()}");
+                builder.AppendLine($"Թարմացվել է` {gr.First().LastUpdated:G}");
                 builder.AppendLine("--------------------------------------------");
             }
             return builder.ToString();
@@ -145,6 +147,7 @@ namespace TelegramBot
             var builder = new StringBuilder();
             builder.AppendLine($"Արժեք՝ {result.Value:N}{result.To} {result.To.ToFlag()}");
             builder.AppendLine("Բանկը՝ " + result.BestBank);
+            builder.AppendLine($"Թարմացվել է` {result.LastUpdated:G}");
             return builder.ToString();
         }
 

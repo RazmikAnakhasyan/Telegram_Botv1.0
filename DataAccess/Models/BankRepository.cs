@@ -18,9 +18,10 @@ namespace DataAccess.Repository
             _context = context;
         }
 
-      public  IEnumerable<Rate> All()
+        public IEnumerable<Rate> All()
         {
-            return _context.Rates.Include(_ => _.Bank);
+            var maxIteration = _context.Rates.Max(_ => _.Iteration);
+            return _context.Rates.Include(_ => _.Bank).Where(_ => _.Iteration == maxIteration);
         }
     }
 }

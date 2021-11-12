@@ -34,6 +34,7 @@ namespace DataAccess.Repositaries.Services
                 var best = bests.Where(_ => _.FromCurrency == from).First();
                 currenciesConvert.Value =best.BuyValue * amount;
                 currenciesConvert.BestBank = best.BestBankForBuying;
+                currenciesConvert.LastUpdated = best.LastUpdated;
             }
             else if (from == _baseCurrency)
             {
@@ -41,6 +42,7 @@ namespace DataAccess.Repositaries.Services
                 var best = bests.Where(_ => _.FromCurrency == to).First();
                 currenciesConvert.Value = (1 / best.BuyValue) * amount;
                 currenciesConvert.BestBank = best.BestBankForBuying;
+                currenciesConvert.LastUpdated = best.LastUpdated;
             }
             else
             {
@@ -50,7 +52,9 @@ namespace DataAccess.Repositaries.Services
                 currenciesConvert.Value = (fromCurrencyBest / toCurrencyBest) * amount;
                 currenciesConvert.BestBank = bests.Where(_ => _.FromCurrency == from).First().BestBankForBuying;
 
+                currenciesConvert.LastUpdated = bests.Where(_ => _.FromCurrency == from).First().LastUpdated;
             }
+
             return currenciesConvert;
 
         }
