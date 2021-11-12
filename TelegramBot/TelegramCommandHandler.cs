@@ -45,7 +45,7 @@ namespace TelegramBot
                     }
                     switch (e.Message.Text)
                     {
-                        case "all":
+                        case "/all":
                             await Bot.SendTextMessageAsync(e.Message.Chat.Id, await GetAll());
                             break;
                         case "/AllBest":
@@ -86,9 +86,9 @@ namespace TelegramBot
             var messageBuilder = new StringBuilder();
             foreach (var item in data)
             {
-                messageBuilder.AppendLine(item.FromCurrency);
-                messageBuilder.AppendLine($"ԱՌՔ:{item.BuyValue} ({item.BestBankForBuying})");
-                messageBuilder.AppendLine($"ՎԱՃԱՌՔ  : {item.SellValue} ({item.BestBankForSelling})");
+                messageBuilder.AppendLine(item.FromCurrency+item.FromCurrency.ToFlag());
+                messageBuilder.AppendLine($"ԱՌՔ: {item.BuyValue:#.##} ({item.BestBankForBuying})");
+                messageBuilder.AppendLine($"ՎԱՃԱՌՔ: {item.SellValue:#.##} ({item.BestBankForSelling})");
             }
 
             return messageBuilder.ToString();
@@ -105,8 +105,8 @@ namespace TelegramBot
                 builder.AppendLine($"{gr.First().BankName}");
                 foreach (var item in gr)
                 {
-                    builder.AppendLine($"{item.FromCurrency}:{item.ToCurrency}");
-                    builder.AppendLine($"{item.BuyValue}:{item.SellValue}");
+                    builder.AppendLine($"{item.FromCurrency}{item.FromCurrency.ToFlag()} ➡️ {item.ToCurrency}{item.ToCurrency.ToFlag()}");
+                    builder.AppendLine($"{item.BuyValue:#.##} |  {item.SellValue:#.##}");
 
                 }
                 builder.AppendLine($"Թարմացվել է: {gr.First().LastUpdated.ToShortDateString()}");
@@ -136,11 +136,14 @@ namespace TelegramBot
             var response = await client.GetAsync(url);
             string responseBody = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<FromToConverter>(responseBody);
+            
             var builder = new StringBuilder();
-            builder.AppendLine("Value:" + result.Value + result.To);
-            builder.AppendLine("Best Bank: " + result.BestBank);
+            builder.AppendLine($"Արժեք՝ {result.Value:N}{result.To} {result.To.ToFlag()}");
+            builder.AppendLine("Բանկը՝ " + result.BestBank);
             return builder.ToString();
         }
+
+     
 
     }
 }
