@@ -19,14 +19,18 @@ namespace DataAccess.Repositories.Implementation
         {
             var maxIteration =  _db.Rates.Count() == 0 ? 1 : _db.Rates.Max(_ => _.Iteration) + 1;
             var availables = _db.Currencies.Select(_ => _.Code).ToList();
-            rate = rate.Where(_ => availables.Contains(_.FromCurrency)).ToList();
-            foreach (var item in rate)
+            var ratesToAdd = rate.Where(_ => availables.Contains(_.FromCurrency))
+                .GroupBy(_ => $"{_.BankId}{_.FromCurrency}")
+                .Select(_ => _.First())
+                .ToList();
+            
+            foreach (var item in ratesToAdd)
             {
                 item.LastUpdated = DateTime.Now;
                 item.Iteration = maxIteration;
             }
 
-            _db.Rates.AddRange(rate);
+            _db.Rates.AddRange(ratesToAdd);
             _db.SaveChanges();
         }
     }
